@@ -4,4 +4,7 @@
     --text-primary: #0D0F10;
     --text-secondary: #6C6C6C;
 
+    --bg-primary: #8338EC;
+    --bg-secondary: #3A86FF; // This may not be even used after
+    --bg-outline: #8338EC;
 }
