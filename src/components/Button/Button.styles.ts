@@ -9,6 +9,11 @@ export const buttonStyles = {
     border-radius: 8px;
     font-family: 'FiraGO', sans-serif;
     transition: all 0.2s ease-in-out;
+    height: 40px; // Added fixed height
+    min-width: fit-content;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   `,
 
   sizes: {
