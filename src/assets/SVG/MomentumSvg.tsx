@@ -1,8 +1,8 @@
 import * as React from "react";
 
 interface MomentumSvgProps {
-    width: number;
-    height: number;
+    width?: number;
+    height?: number;
 }
 
 const MomentumSvg: React.FC<MomentumSvgProps> = ({ width=210, height=38}) => (

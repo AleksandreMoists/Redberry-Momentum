@@ -1,8 +1,8 @@
 import React from "react"
 
 interface PlusSvgProps {
-    width: number;
-    height: number;
+    width?: number;
+    height?: number;
 }
 
 const PlusSvg: React.FC<PlusSvgProps> = ({ width=20, height=20}) => (

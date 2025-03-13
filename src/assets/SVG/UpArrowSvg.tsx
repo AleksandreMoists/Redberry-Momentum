@@ -1,9 +1,9 @@
 import React from "react"
 
 interface UpArrowProps {
-    width: number;
-    height: number;
-    fill: string;
+    width?: number;
+    height?: number;
+    fill?: string;
 }
 
 const UpArrowSvg: React.FC<UpArrowProps> = ({ width=14, height=15, fill="none"}) => (

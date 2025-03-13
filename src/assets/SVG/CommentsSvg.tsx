@@ -1,8 +1,8 @@
 import React from "react";
 
 interface CommentsSvgProps {
-    width: number;
-    height: number;
+    width?: number;
+    height?: number;
 }
 
 const CommentsSvg: React.FC<CommentsSvgProps> = ({ width=22, height=23 }) => (

@@ -1,8 +1,8 @@
 import React from "react"
 
 interface LeftArrowProps {
-    width: number;
-    height: number;
+    width?: number;
+    height?: number;
 }
 
 const LeftArrowSvg: React.FC<LeftArrowProps> = ({ width=16, height=16}) => (

@@ -1,9 +1,9 @@
 import React from "react"
 
 interface DownArrowProps {
-    width: number;
-    height: number;
-    fill: string;
+    width?: number;
+    height?: number;
+    fill?: string;
 }
 
 const DownArrowSvg: React.FC<DownArrowProps> = ({ width=14, height=15, fill="none"}) => (

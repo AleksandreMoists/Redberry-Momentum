@@ -1,8 +1,8 @@
 import React from "react"
 
 interface EqualSvgProps {
-    width: number;
-    height: number;
+    width?: number;
+    height?: number;
 }
 
 const EqualSvg: React.FC<EqualSvgProps> = ({ width=12, height=10 }) => (
