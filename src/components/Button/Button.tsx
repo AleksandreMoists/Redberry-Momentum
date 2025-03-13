@@ -6,32 +6,32 @@ interface ButtonProps extends Omit<MuiButtonProps, 'variant'> {
   size?: 'small' | 'medium' | 'large';
 }
 
-const StyledButton = styled(MuiButton)(({ theme }) => ({
+const StyledButton = styled(MuiButton)(() => ({
   textTransform: 'none',
   borderRadius: '8px',
   padding: '10px 20px',
   
   '&.primary': {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: '#8338EC',
     color: '#fff',
     '&:hover': {
-      backgroundColor: theme.palette.primary.dark,
+      backgroundColor: '#6c2ec4',
     },
   },
   
   '&.secondary': {
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: '#3A86FF',
     color: '#fff',
     '&:hover': {
-      backgroundColor: theme.palette.secondary.dark,
+      backgroundColor: '#2e6ccc',
     },
   },
   
   '&.outlined': {
-    border: `1px solid ${theme.palette.primary.main}`,
-    color: theme.palette.primary.main,
+    border: '1px solid #8338EC',
+    color: '#8338EC',
     '&:hover': {
-      backgroundColor: 'rgba(0, 0, 0, 0.04)',
+      backgroundColor: 'rgba(131, 56, 236, 0.04)',
     },
   },
 
