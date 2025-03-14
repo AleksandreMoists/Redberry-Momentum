@@ -1,0 +1,45 @@
+.department {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 5px 9px;
+    border-radius: 15px;
+    width: 88px;
+    height: 24px;
+}
+
+.departmentName {
+    font-family: "FiraGO";
+    font-weight: 400;
+    font-size: 12px;
+    color: #FFFFFF !important;
+}
+
+.department[data-id="1"] {
+    background-color: #3333FF;
+}
+
+.department[data-id="2"] {
+    background-color: #FF006E;
+}
+
+.department[data-id="3"] {
+    background-color: #F7BC30;
+}
+
+.department[data-id="4"] {
+    background-color: #FD9A6A;
+}
+
+.department[data-id="5"] {
+    background-color: #89B6FF;
+}
+
+.department[data-id="6"] {
+    background-color: #FFD86D;
+}
+
+.department[data-id="7"] {
+    background-color: #FF66A8;
+}

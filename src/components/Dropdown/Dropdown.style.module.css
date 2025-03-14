@@ -1,0 +1,111 @@
+@import '../../assets/styles/colors.style.module.css';
+
+.dropdown {
+    position: static;
+    display: inline-block;
+}
+
+.dropdownToggle {
+    padding: 8px 16px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    font-family: "FiraGO";
+    font-size: 14px;
+    color: #1A1A1A;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s;
+}
+
+.dropdownToggleActive {
+    color: var(--bg-primary);
+}
+
+.dropdownContent {
+    position: absolute;
+    top: 100%;
+    width: 100%;
+    left: 0;
+    background: #FFFFFF;
+    border: 1px solid var(--bg-primary);
+    border-radius: 8px;
+    z-index: 1000;
+    padding: 20px;
+    margin-top: 8px;
+}
+
+.checkboxLabel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.checkboxLabel:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+}
+
+/* Custom checkbox styling */
+.checkbox {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    border: 1.5px solid var(--bg-primary);
+    border-radius: 6px;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    background: white;
+}
+
+.checkbox:checked {
+    background-color: white;
+    border-color: var(--bg-primary)
+}
+
+.checkbox:checked::after {
+    content: '';
+    position: absolute;
+    width: 5px;
+    height: 10px;
+    border: solid var(--bg-primary);
+    border-width: 0 2px 2px 0;
+    top: 3px;
+    left: 7px;
+    transform: rotate(45deg);
+}
+
+.buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    margin-top: 5px;
+}
+
+.saveButton {
+    width: 155px;
+    height: 35px;
+    border-radius: 20px;
+    padding: 8px 20px;
+    background-color: var(--bg-primary);
+    border: none;
+    outline: none;
+    cursor: pointer;
+    color: white;
+    font-family: "FiraGO";
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: none;
+}
+
+.saveButton:hover {
+    opacity: 0.9;
+}
+
+
