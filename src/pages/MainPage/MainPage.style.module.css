@@ -1,0 +1,135 @@
+.container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 30px 120px;
+}
+
+.header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    height: 100px;
+}
+
+.buttons {
+    display: flex;
+    height: 40px;
+    gap: 40px;
+}
+
+.logo {
+    display: flex;
+    gap: 4px;
+}
+
+.logoStyle {
+    width: auto;
+    height: 38px;
+    font-size: 31px;
+    font-weight: 400;
+    line-height: 100%;
+    color: #8338EC !important;
+    font-family: 'Fredoka One';
+}
+
+.category {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Reduced from 45px */
+}
+
+.categoryDropdown {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    width: 688px;
+    max-width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid #DEE2E6;
+    border-radius: 10px;
+    padding: 0 20px;
+    height: 44px;
+    position: relative;
+}
+
+.main {
+    margin: 15px 0; /* Reduced from 30px 0 */
+    width: 100%;
+}
+
+.userStatus{
+    display: flex;
+    margin-top: 15px;
+    flex-direction: row;    
+    padding: 15px 0;
+    gap: 50px;
+}
+
+.userStatusStyle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 381px;
+    height: 54px;
+    padding: 15px 0;
+    border-radius: 10px;
+}
+
+.userStatusLabel {
+    color: var(--text-white) !important;
+}
+
+.dynamicDataCards {
+    display: flex;
+    gap: 50px;
+}
+
+.selectedCategory {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
+    margin-top: 10px; /* Reduced from 20px */
+    height: 40px; /* Fixed height for the selected items area */
+    overflow-y: auto; /* Add scrolling if there are many items */
+}
+
+.categoryGroup {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-right: 16px;
+}
+
+.selectedCategoryItem {
+    display: flex;
+    align-items: center;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    padding: 6px 12px;
+    gap: 6px;
+}
+
+.removeButton {
+    background: none;
+    border: none;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.clearAll {
+    cursor: pointer;
+    color: var(--bg-primary);
+    text-decoration: underline;
+}
+
+.clearAllStyle {
+    color: var(--bg-primary);
+}
