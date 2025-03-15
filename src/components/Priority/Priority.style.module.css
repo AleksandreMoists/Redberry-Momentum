@@ -1,0 +1,41 @@
+.priority {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px;;
+    border-radius: 5px;
+    width: fit-content;
+    height: 26px;
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+}
+
+/* Low Priority */
+.priority1 {
+    border: 0.5px solid #08A508;
+}
+
+.priority1 h3 {
+    color: #08A508;
+}
+
+/* Medium Priority */
+.priority2 {
+    border: 0.5px solid #FFBE0B;
+}
+
+.priority2 h3 {
+    color: #FFBE0B;
+}
+
+/* High Priority */
+.priority3 {
+    border: 0.5px solid #FA4D4D;
+}
+
+.priority3 h3 {
+    color: #FA4D4D;
+}

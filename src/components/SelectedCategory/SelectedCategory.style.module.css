@@ -1,0 +1,34 @@
+.selectedCategory {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+    gap: 16px;
+}
+
+.selectedCategoryItem {
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    width: fit-content;
+    gap: 4px;
+    padding: 6px 10px;
+    border: 1px solid #CED4DA;
+    border-radius: 43px;
+    
+}
+
+.removeButton {
+    background: none;
+    border: none;
+    padding: 0;
+    margin-left: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.clearAllStyle {
+    cursor: pointer;
+}
