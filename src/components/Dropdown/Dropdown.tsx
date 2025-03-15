@@ -142,7 +142,9 @@ const Dropdown: React.FC<DropdownProps> = ({
             </button>
             {isOpen && (
                 <div className={styles.dropdownContent}>
-                    {checkboxItems}
+                    <div className={styles.checkboxContainer}>
+                        {checkboxItems}
+                    </div>
                     <div className={styles.buttonContainer}>
                         <button 
                             onClick={handleSave}
