@@ -33,3 +33,12 @@ export interface Task {
     employee: Employee;
     total_comments: number;
 }
+export interface TaskPost {
+    name: string;
+    description: string;
+    employee_id: number;
+    department_id: number | null;
+    priority_id: number;
+    status_id: number;
+    due_date: string | null;
+  }
