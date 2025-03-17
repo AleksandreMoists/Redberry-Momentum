@@ -12,6 +12,10 @@ interface DropdownProps {
     id: string;
     type?: 'checkbox' | 'radio';
     externalSelected?: number[];
+    variant?: 'default' | 'task';  // Add variant prop
+    placeholder?: string;
+    containerClassName?: string;
+    containerStyle?: React.CSSProperties;
 }
 
 const Dropdown: React.FC<DropdownProps> = ({ 
@@ -19,8 +23,12 @@ const Dropdown: React.FC<DropdownProps> = ({
     options, 
     onSelect, 
     id, 
-    type='checkbox',
-    externalSelected 
+    type = 'checkbox',
+    externalSelected,
+    variant = 'default',  // Default to original style
+    placeholder = 'აირჩიე',
+    containerClassName = '',
+    containerStyle = {}
 }) => {
     const dropdownId = useId(); 
     const { openDropdownId, setOpenDropdownId } = useDropdown();
@@ -55,7 +63,10 @@ const Dropdown: React.FC<DropdownProps> = ({
         }
     }, [isOpen, selected]);
 
-    const handleToggle = useCallback(() => {
+    const handleToggle = useCallback((e: React.MouseEvent) => {
+        e.preventDefault(); // Prevent form submission
+        e.stopPropagation(); // Stop event bubbling
+        
         if (isOpen) {
             setOpenDropdownId(null);
         } else {
@@ -63,30 +74,31 @@ const Dropdown: React.FC<DropdownProps> = ({
         }
     }, [isOpen, setOpenDropdownId, dropdownId]);
 
-    const handleCheckboxChange = useCallback((id: number) => {
-        setTempSelected(prev => 
-            prev.includes(id)
-                ? prev.filter(item => item !== id)
-                : [...prev, id]
-        );
-    }, []);
-
-
-    // Radio change for employee dropdown
-    const handleRadioChange = useCallback((id: number) => {
-        setTempSelected(prev => {
-            if(prev.length === 1 && prev[0] === id) {
-                return [];
-            }
-            return [id];
-        });
-    }, []);
-
-    const handleSave = useCallback(() => {
-        setSelected(tempSelected);
-        onSelect(tempSelected);
-        setOpenDropdownId(null);
-    }, [tempSelected, onSelect, setOpenDropdownId]);
+    // Simplified handlers that directly update both temp and final state
+    const handleItemSelect = useCallback((itemId: number) => (e: React.MouseEvent) => {
+        e.preventDefault(); // Prevent form submission
+        e.stopPropagation(); // Stop event bubbling
+        
+        // For radio buttons (single select)
+        if (type === 'radio') {
+            // Toggle selection: if already selected, clear it; otherwise select it
+            const newSelection = tempSelected.includes(itemId) ? [] : [itemId];
+            setTempSelected(newSelection);
+            setSelected(newSelection);
+            onSelect(newSelection);
+            // Close dropdown after selection for radio type
+            setOpenDropdownId(null);
+            return;
+        }
+        
+        // For checkboxes (multi-select)
+        const newSelection = tempSelected.includes(itemId)
+            ? tempSelected.filter(id => id !== itemId)
+            : [...tempSelected, itemId];
+        setTempSelected(newSelection);
+        setSelected(newSelection);
+        onSelect(newSelection);
+    }, [tempSelected, setTempSelected, setSelected, onSelect, setOpenDropdownId, type]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -112,34 +124,94 @@ const Dropdown: React.FC<DropdownProps> = ({
         }
     }, [options]);
 
+    // Create clickable menu items where the entire row is clickable
+    const taskMenuItems = useMemo(() => {
+        return memoizedOptions.map(option => (
+            <div 
+                key={option.id} 
+                className={styles.menuItemRow}
+                onClick={handleItemSelect(option.id)}
+            >
+                <input
+                    type={type}
+                    checked={tempSelected.includes(option.id)}
+                    readOnly
+                    className={styles.checkbox}
+                />
+                <span className={styles.menuItemText}>{option.name}</span>
+            </div>
+        ));
+    }, [memoizedOptions, tempSelected, handleItemSelect, type]);
+
+    // Regular checkbox items (for default variant)
     const checkboxItems = useMemo(() => {
         return memoizedOptions.map(option => (
             <label key={option.id} className={styles.checkboxLabel}>
                 <input
                     type={type}
                     checked={tempSelected.includes(option.id)}
-                    onChange={type === 'checkbox' 
-                        ? () => handleCheckboxChange(option.id)
-                        : () => handleRadioChange(option.id)}
+                    onClick={handleItemSelect(option.id)}
                     className={styles.checkbox}
                 />
                 {option.name}
             </label>
         ));
-    }, [memoizedOptions, tempSelected, handleCheckboxChange, handleRadioChange, type]);
+    }, [memoizedOptions, tempSelected, handleItemSelect, type]);
 
+    // Get selected option names for display
+    const selectedNames = useMemo(() => {
+        return selected
+            .map(id => memoizedOptions.find(o => o.id === id)?.name || '')
+            .filter(Boolean);
+    }, [selected, memoizedOptions]);
+
+    // MUI-style dropdown (task variant)
+    if (variant === 'task') {
+        return (
+            <div className={`${styles.muiDropdown} ${containerClassName}`} style={containerStyle}>
+                <label className={styles.muiLabel}>{label}</label>
+                <div className={styles.muiSelect}>
+                    <button 
+                        className={`${styles.muiSelectButton} ${isOpen ? styles.muiSelectButtonActive : ''}`}
+                        onClick={handleToggle}
+                        type="button"
+                        style={{ border: "1px solid #DEE2E6" }} // Added border styling here
+                    >
+                        <span className={styles.muiSelectText}>
+                            {selectedNames.length > 0 
+                                ? selectedNames.join(', ')
+                                : placeholder}
+                        </span>
+                        <span className={styles.muiSelectIcon}>
+                            {isOpen ? <UpArrowSvg /> : <DownArrowSvg />}
+                        </span>
+                    </button>
+                    
+                    {isOpen && (
+                        <div className={styles.muiMenu}>
+                            <div className={styles.muiMenuItems}>
+                                {/* Use the task menu items instead of regular checkboxItems */}
+                                {taskMenuItems}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            </div>
+        );
+    }
+    
+    // Default variant
     return (
-        <div className={styles.dropdown}>
+        <div className={`${styles.dropdown} ${containerClassName}`} style={containerStyle}>
             <button 
                 className={`${styles.dropdownToggle} ${isOpen ? styles.dropdownToggleActive : ''}`}
-                onClick={(e) => {
-                    e.stopPropagation();
-                    handleToggle();
-                }}
+                onClick={handleToggle}
+                type="button"
             >
                 {label}
                 {isOpen ? <UpArrowSvg /> : <DownArrowSvg />}
             </button>
+            
             {isOpen && (
                 <div className={styles.dropdownContent}>
                     <div className={styles.checkboxContainer}>
@@ -147,8 +219,10 @@ const Dropdown: React.FC<DropdownProps> = ({
                     </div>
                     <div className={styles.buttonContainer}>
                         <button 
-                            onClick={handleSave}
+                            onClick={handleToggle}
                             className={styles.saveButton}
+                            type="button"
+                            style={{ border: "1px solid #DEE2E6" }} // Added border styling here
                         >
                             <Typography variant='h3'>არჩევა</Typography>
                         </button>

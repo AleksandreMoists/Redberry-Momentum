@@ -136,4 +136,134 @@
     opacity: 0.9;
 }
 
+/* MUI-style dropdown */
+.muiDropdown {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 70px;
+  font-family: 'FiraGO', sans-serif;
+}
+
+.muiLabel {
+  font-size: 14px;
+  color: #0D0F10;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.muiSelect {
+  position: relative;
+  width: 100%;
+}
+
+.muiSelectButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 45px;
+  padding: 0 16px;
+  background-color: white;
+  border: 1px solid #DEE2E6;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 14px;
+  color: #0D0F10;
+}
+
+.muiSelectButtonActive {
+  border-color: #007BFF;
+  box-shadow: 0 0 0 1px rgba(0, 123, 255, 0.25);
+}
+
+.muiSelectText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 1;
+}
+
+.muiSelectIcon {
+  display: flex;
+  align-items: center;
+  margin-left: 8px;
+}
+
+.muiMenu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  background-color: #ffffff;
+  border: 1px solid #dee2e6;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.muiMenuItems {
+  padding: 6px 0;
+}
+
+.muiMenuItems .checkboxLabel {
+  display: flex;
+  align-items: center;
+  padding: 8px 16px;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.muiMenuItems .checkboxLabel:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+.muiMenuItems .checkbox {
+  margin-right: 12px;
+}
+
+.muiButtonContainer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px;
+}
+
+.muiSaveButton {
+  padding: 6px 16px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.muiSaveButton:hover {
+  background-color: #0069D9;
+}
+
+/* Menu item row styling - for task variant */
+.menuItemRow {
+  display: flex;
+  align-items: center;
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  width: 100%;
+}
+
+.menuItemRow:hover {
+  background-color: #f5f5f5;
+}
+
+/* Add style for the text */
+.menuItemText {
+  margin-left: 8px;
+  flex: 1;
+}
+
 

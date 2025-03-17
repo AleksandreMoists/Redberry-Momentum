@@ -38,7 +38,7 @@
 .category {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Reduced from 45px */
+    gap: 35px; /* Reduced from 45px */
 }
 
 .categoryDropdown {
@@ -57,7 +57,6 @@
 }
 
 .main {
-    margin: 15px 0; /* Reduced from 30px 0 */
     width: 100%;
 }
 
@@ -84,6 +83,7 @@
 }
 
 .dynamicDataCards {
+    margin-top: 15px;
     display: flex;
     gap: 50px;
 }

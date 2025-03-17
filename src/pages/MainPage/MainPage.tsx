@@ -7,12 +7,18 @@ import { statusData } from "../../utils/mockData";
 import { cardData } from "../../utils/mockData";
 import { Dropdown } from "../../components/Dropdown/Dropdown";
 import SelectedCategory from "../../components/SelectedCategory/SelectedCategory";
+import { useTasksContainer } from './container';
+import { DepartmentId, departmentOriginalNameMap } from "../../services/enums/apiEnums";  
+
 
 const departmentOptions = [
-    { id: 1, name: "HR" },
-    { id: 2, name: "IT" },
-    { id: 3, name: "Finance" },
-    { id: 4, name: "Marketing" },
+    { id: DepartmentId.HUMAN_RESOURCES, name: departmentOriginalNameMap[DepartmentId.HUMAN_RESOURCES] },
+    { id: DepartmentId.TECHNOLOGY, name: departmentOriginalNameMap[DepartmentId.TECHNOLOGY] },
+    { id: DepartmentId.FINANCE, name: departmentOriginalNameMap[DepartmentId.FINANCE] },
+    { id: DepartmentId.SALES_MARKETING, name: departmentOriginalNameMap[DepartmentId.SALES_MARKETING] },
+    { id: DepartmentId.ADMINISTRATION, name: departmentOriginalNameMap[DepartmentId.ADMINISTRATION] },
+    { id: DepartmentId.LOGISTICS, name: departmentOriginalNameMap[DepartmentId.LOGISTICS] },
+    { id: DepartmentId.MEDIA, name: departmentOriginalNameMap[DepartmentId.MEDIA] },
 ];
 
 const priorityOptions = [
@@ -47,6 +53,18 @@ const MainPage: React.FC = () => {
         setPriorities([]);
         setEmployees([]);
     };
+
+    const { 
+        filteredTasks, 
+        loading, 
+        error,
+        filterByStatus,
+        filterByPriority,
+        filterByDepartment 
+    } = useTasksContainer();
+
+    if (loading) return <div>Loading tasks...</div>;
+    if (error) return <div>Error loading tasks: {error.message}</div>;
 
     return (
         <Layout>
@@ -106,7 +124,7 @@ const MainPage: React.FC = () => {
                  </div>
 
                  <div className={styles.dynamicDataCards}>
-                    {cardData.map((card, index) => (
+                    {filteredTasks.map((card, index) => (
                         <DynamicDataCard 
                             key={index}
                             {...card}
