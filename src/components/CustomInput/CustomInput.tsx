@@ -15,6 +15,11 @@ export const TextInput = React.memo(
     className,
     style,
     onChange,
+    validationState,
+    charCount,
+    sx,
+    multiline = false,
+    rows,
     ...props 
   }: TextInputProps) => {
     const renderInput = () => {
@@ -37,13 +42,13 @@ export const TextInput = React.memo(
                     <FormControlLabel
                         control={
                             <Radio
-                                checked={value === ''}  
+                                checked={value === 'true'}  
                                 onChange={(e) => onChange?.(e.target.checked.toString())}
                                 disabled={disabled} 
-                                />
+                            />
                         }
                         label={label}
-                        />
+                    />
                 );
             default: 
                 return(
@@ -56,8 +61,11 @@ export const TextInput = React.memo(
                             disabled={disabled}
                             fullWidth={fullWidth}
                             error={!!errorMessage}
+                            sx={sx}
+                            multiline={multiline}
+                            rows={rows}
                             {...props}
-                            />
+                        />
                     </>
                 );
             }
@@ -69,39 +77,47 @@ export const TextInput = React.memo(
               {errorMessage && (
                 <FormHelperText error>{errorMessage}</FormHelperText>
               )}
+              {charCount && (
+                <div className={styles.charCount}>{charCount}</div>
+              )}
             </div>
           )
         }
     );
 
-    export const ControlledInput = React.memo(function ControlledInput<
-        T extends FieldValues
-      >({ 
-        control,
-        name,
-        rules,
-        errors,
-        showErrorMessage = true,
-        ...props
-      }: ControlledInputProps<T>) {
-        const errorMessage = errors?.[name]?.message as string;
-      
-        return (
-          <Controller
-            name={name}
-            control={control}
-            rules={rules}
-            render={({ field: { onChange, value } }) => (
-              <TextInput
-                {...props}
-                value={value}
-                onChange={onChange}
-                errorMessage={showErrorMessage ? errorMessage : undefined}
-              />
-            )}
-          />
-        );
-      });
-      
-      export default TextInput;
+export const ControlledInput = React.memo(<T extends FieldValues>(
+  { 
+    control,
+    name,
+    rules,
+    errors,
+    showErrorMessage = true,
+    validationState,
+    charCount,
+    sx,
+    ...props
+  }: ControlledInputProps<T>
+) => {
+  const errorMessage = errors?.[name]?.message as string;
 
+  return (
+    <Controller
+      name={name}
+      control={control}
+      rules={rules}
+      render={({ field: { onChange, value } }) => (
+        <TextInput
+          {...props}
+          value={value}
+          onChange={onChange}
+          errorMessage={showErrorMessage ? errorMessage : undefined}
+          validationState={validationState}
+          charCount={charCount}
+          sx={sx}
+        />
+      )}
+    />
+  );
+});
+
+export default TextInput;

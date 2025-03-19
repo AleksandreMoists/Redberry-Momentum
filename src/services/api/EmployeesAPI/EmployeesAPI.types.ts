@@ -9,6 +9,6 @@ export interface Employee {
 export interface EmployeePost {
     name: string;
     surname: string;
-    avatar?: string | null | undefined;
-    department_id: number | null | undefined;
+    avatar?: File;
+    department_id: number;
 }

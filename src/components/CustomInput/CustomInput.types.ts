@@ -11,6 +11,11 @@ export type TextInputProps = {
   style?: CSSProperties;
   onChange?: (value: string) => void;
   value?: string;
+  validationState?: string;
+  charCount?: number;
+  sx?: any; // For MUI styling object
+  multiline?: boolean; // Add multiline prop
+  rows?: number; // Add rows prop
 };
 
 export type ControlledInputProps<T extends FieldValues> = TextInputProps &

@@ -1,0 +1,136 @@
+.avatarUpload {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.avatarContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 8px;
+    border: 2px dashed #CED4DA; /* Changed to dashed border */
+    padding: 20px;
+    gap: 16px;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    width: 100%;
+    min-height: 120px;
+    transition: all 0.2s ease;
+}
+
+.avatarContainer:hover {
+    border-color: var(--bg-primary);
+    background-color: rgba(0, 113, 235, 0.05);
+}
+
+.avatarOption {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s ease-in-out;
+    background-color: white; /* Add white background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
+}
+
+.avatarOption:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.selected {
+    border-color: var(--bg-primary);
+    box-shadow: 0 0 0 2px rgba(0, 113, 235, 0.2);
+}
+
+.avatarImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Add upload icon styling */
+.uploadIcon {
+    color: #6c757d;
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+/* Add file explorer hint text */
+.uploadText {
+    color: #6c757d;
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+  
+  .avatarContainer {
+    cursor: pointer;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  
+  .uploadInstructions {
+    text-align: center;
+    margin-bottom: 12px;
+  }
+  
+  .uploadedFileContainer {
+    position: relative;
+    width: 88px;
+    height: 88px;
+  }
+  
+  .uploadedAvatar {
+    width: 88px;
+    height: 88px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid #DEE2E6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .uploadedImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This ensures the image covers the entire container */
+  }
+  
+  .removeButton {
+    position: absolute;
+    /* top: -8px; */
+    bottom: 4px;
+    right: -8px;
+    background-color: #FFFFFF;
+    border: none;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    cursor: pointer;
+    z-index: 1;
+  }
+  
+  .removeButton:hover {
+    background-color: #c82333;
+  }
+  
+  .error {
+    color: #dc3545;
+    text-align: center;
+    margin-top: 8px;
+  }

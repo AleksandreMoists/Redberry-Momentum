@@ -67,7 +67,7 @@ const MainPage: React.FC = () => {
     if (error) return <div>Error loading tasks: {error.message}</div>;
 
     return (
-        <Layout>
+        <>
             <div className={styles.category}>
                 <Typography variant="h1">დავალებების გვერდი</Typography>
                 <div className={styles.categoryDropdown}>
@@ -132,7 +132,7 @@ const MainPage: React.FC = () => {
                     ))}
                  </div>
             </div>
-        </Layout>
+            </>
     );
 };
 

@@ -12,7 +12,7 @@ interface DropdownProps {
     id: string;
     type?: 'checkbox' | 'radio';
     externalSelected?: number[];
-    variant?: 'default' | 'task';  // Add variant prop
+    variant?: 'default' | 'task' | 'employee';  // Added employee variant
     placeholder?: string;
     containerClassName?: string;
     containerStyle?: React.CSSProperties;
@@ -25,7 +25,7 @@ const Dropdown: React.FC<DropdownProps> = ({
     id, 
     type = 'checkbox',
     externalSelected,
-    variant = 'default',  // Default to original style
+    variant = 'default',
     placeholder = 'აირჩიე',
     containerClassName = '',
     containerStyle = {}
@@ -165,8 +165,8 @@ const Dropdown: React.FC<DropdownProps> = ({
             .filter(Boolean);
     }, [selected, memoizedOptions]);
 
-    // MUI-style dropdown (task variant)
-    if (variant === 'task') {
+    // MUI-style dropdown (task and employee variants)
+    if (variant === 'task' || variant === 'employee') {
         return (
             <div className={`${styles.muiDropdown} ${containerClassName}`} style={containerStyle}>
                 <label className={styles.muiLabel}>{label}</label>
@@ -175,7 +175,7 @@ const Dropdown: React.FC<DropdownProps> = ({
                         className={`${styles.muiSelectButton} ${isOpen ? styles.muiSelectButtonActive : ''}`}
                         onClick={handleToggle}
                         type="button"
-                        style={{ border: "1px solid #DEE2E6" }} // Added border styling here
+                        style={{ border: "1px solid #DEE2E6" }}
                     >
                         <span className={styles.muiSelectText}>
                             {selectedNames.length > 0 
@@ -189,8 +189,11 @@ const Dropdown: React.FC<DropdownProps> = ({
                     
                     {isOpen && (
                         <div className={styles.muiMenu}>
-                            <div className={styles.muiMenuItems}>
-                                {/* Use the task menu items instead of regular checkboxItems */}
+                            {/* Use checkboxContainer class for consistent scrollbar styling */}
+                            <div className={`${styles.muiMenuItems} ${
+                                variant === 'task' || variant === 'employee' ? 
+                                `${styles.scrollableMenu} ${styles.checkboxContainer}` : ''
+                            }`}>
                                 {taskMenuItems}
                             </div>
                         </div>
