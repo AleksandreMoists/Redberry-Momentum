@@ -14,7 +14,7 @@ const DownArrowSvg: React.FC<DownArrowProps> = ({ width=14, height=15, fill="non
         fill={fill}
         xmlns="http://www.w3.org/2000/svg"
         >
-    <path d="M11.6199 5.72083L7.81655 9.52416C7.36738 9.97333 6.63238 9.97333 6.18322 9.52416L2.37988 5.72083" stroke="#343A40" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M11.6199 5.72083L7.81655 9.52416C7.36738 9.97333 6.63238 9.97333 6.18322 9.52416L2.37988 5.72083" stroke="#343A40" strokeWidth="1.5" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
 )
 

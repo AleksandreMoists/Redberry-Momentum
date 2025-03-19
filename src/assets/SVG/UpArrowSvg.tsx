@@ -14,7 +14,7 @@ const UpArrowSvg: React.FC<UpArrowProps> = ({ width=14, height=15, fill="none"})
         fill={fill}
         xmlns="http://www.w3.org/2000/svg"
         >
-    <path d="M2.38012 9.27917L6.18345 5.47584C6.63262 5.02667 7.36762 5.02667 7.81678 5.47584L11.6201 9.27917" stroke="#8338EC" stroke-width="1.5" stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M2.38012 9.27917L6.18345 5.47584C6.63262 5.02667 7.36762 5.02667 7.81678 5.47584L11.6201 9.27917" stroke="#8338EC" strokeWidth="1.5" stroke-miterlimit="10" strokeLinecap="round" strokeLinejoin="round"/>
     </svg>
 )
 
