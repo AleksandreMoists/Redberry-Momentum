@@ -23,7 +23,9 @@ const taskSchema = yup.object({
   department_id: yup.number().nullable(),
   priority_id: yup.number().required('პრიორიტეტი აუცილებელია'),
   status_id: yup.number().nullable(),
-  due_date: yup.date().nullable(),
+  due_date: yup.date()
+    .nullable()
+    .min(new Date(), 'დედლაინის თარიღი არ უნდა იყოს წარსულში'),
 }).required();
 
 type TaskFormValues = yup.InferType<typeof taskSchema>;
@@ -42,7 +44,6 @@ export const useCreateTaskForm = () => {
   const [statuses, setStatuses] = useState<Statuses[]>([]);
   const [loadingStatuses, setLoadingStatuses] = useState(false);
 
-  // Fetch employees on component mount
   useEffect(() => {
     const fetchEmployeeData = async () => {
       try {
@@ -51,7 +52,6 @@ export const useCreateTaskForm = () => {
         setEmployees(employeeData);
       } catch (err) {
         console.error('Failed to fetch employees:', err);
-        // Set some default employees in case of error
         setEmployees([
           { id: 1, name: 'Employee 1', surname: 'Surname', department_id: 1 },
           { id: 2, name: 'Employee 2', surname: 'Surname', department_id: 1 }
@@ -80,7 +80,6 @@ export const useCreateTaskForm = () => {
     fetchTasks();
   }, []);
   
-  // Format employees for the dropdown
   const employeeOptions = employees.map(employee => ({
     id: employee.id,
     name: `${employee.name} ${employee.surname}`
@@ -92,7 +91,6 @@ export const useCreateTaskForm = () => {
   }));
 
 
-  // Initialize form with correct field names
   const { control, handleSubmit, reset, watch, setValue, getValues, formState: { errors } } = useForm<TaskFormValues>({
     resolver: yupResolver(taskSchema),
     mode: 'onChange',
@@ -105,26 +103,20 @@ export const useCreateTaskForm = () => {
       status_id: 1,
       due_date: null,
     },
-    // This keeps form values in memory
     shouldUnregister: false,
   });
   
-  // Update validation states when form fields change
   useEffect(() => {
-    // Watch both fields to update validation states
     const nameValue = watch('name');
     const descriptionValue = watch('description');
     
-    // Update validation states based on errors and field values
     setValidationStates({
       name: errors.name ? 'error' : nameValue ? 'success' : 'default',
       description: errors.description ? 'error' : descriptionValue ? 'success' : 'default'
     });
     
-    // Make sure to include watch and errors.description as dependencies
   }, [watch, errors.name, errors.description]);
 
-  // Handle dropdown selections
   const handleDepartmentSelect = (selectedItems: number[]) => {
     if (selectedItems && selectedItems.length > 0) {
       setValue('department_id', selectedItems[0]);
@@ -161,13 +153,11 @@ export const useCreateTaskForm = () => {
     setValue('due_date', date);
   };
 
-  // Form submission handler
   const onSubmit = async (data: TaskFormValues) => {
     try {
       setIsSubmitting(true);
       setError(null);
       
-      // Format data according to TaskPost interface
       const taskPayload: TaskPost = {
         name: data.name,
         description: data.description,
@@ -178,20 +168,15 @@ export const useCreateTaskForm = () => {
         due_date: data.due_date ? new Date(data.due_date).toISOString() : null
       };
       
-      // Make API call
       await createTask(taskPayload);
       
-      // Reset the form
       reset();
       
-      // Navigate to the tasks page
       
     } catch (err: any) {
-      // Error handling remains the same
     }
   };
 
-  // Watch fields for character count
   const nameVal = watch('name');
   const descriptionVal = watch('description');
 
