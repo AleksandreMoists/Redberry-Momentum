@@ -1,8 +1,9 @@
 import React from "react";
-import { Input, InputLabel, FormHelperText, FormControlLabel, Checkbox, Radio } from "@mui/material";
+import { Input, InputLabel, FormHelperText, FormControlLabel, Checkbox, Radio, } from "@mui/material";
 import { Control, Controller, FieldValues } from "react-hook-form";
 import { ControlledInputProps, TextInputProps } from "./CustomInput.types";
 import styles from "./CustomInput.style.module.css";
+import Typography from "../Typography/Typography";
 
 export const TextInput = React.memo(
   ({ 
@@ -53,7 +54,7 @@ export const TextInput = React.memo(
             default: 
                 return(
                     <>
-                        {label && <InputLabel>{label}</InputLabel>}
+                        {label && <Typography variant="subtitle">{label}</Typography>}
                         <Input
                             type={type}
                             value={value}
@@ -76,9 +77,6 @@ export const TextInput = React.memo(
               {renderInput()}
               {errorMessage && (
                 <FormHelperText error>{errorMessage}</FormHelperText>
-              )}
-              {charCount && (
-                <div className={styles.charCount}>{charCount}</div>
               )}
             </div>
           )

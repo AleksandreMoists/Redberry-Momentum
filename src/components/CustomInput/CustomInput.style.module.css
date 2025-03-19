@@ -1,13 +1,7 @@
+/* Container for the whole input group */
 .inputWrapper {
   display: flex;
   flex-direction: column;
-  height: 42px;
   width: 100%;
   gap: 4px;
-}
-
-.inputWrapper input {
-  padding: 10px;
-  border-radius: 6px;
-  font-family: 'FiraGO', sans-serif;
 }

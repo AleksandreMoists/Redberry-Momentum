@@ -84,8 +84,9 @@
 
 .dynamicDataCards {
     margin-top: 15px;
-    display: flex;
+    display: grid;
     gap: 50px;
+    grid-template-columns: repeat(4, 1fr); /* 2 columns */
 }
 
 .selectedCategory {
