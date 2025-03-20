@@ -1,8 +1,13 @@
+import axios from "axios";
 import apiClient from "../api";
 import { Employee, EmployeePost } from "./EmployeesAPI.types";
 
 export const getEmployees = async (): Promise<Employee[]> => {
-    const response = await apiClient.get<Employee[]>("/employees");
+    const response = await axios.get('https://momentum.redberryinternship.ge/api/employees', {
+      headers: {
+        Authorization: `Bearer 9e6e183c-aced-455d-902c-fb6eba59124b`
+      },
+  })
     return response.data;
 };
 

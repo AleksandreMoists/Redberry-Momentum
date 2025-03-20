@@ -9,7 +9,7 @@ export const TextInput = React.memo(
   ({ 
     value,
     label,
-    type = "text",
+    type = "text",                                
     disabled = false,
     errorMessage,
     fullWidth = false,
@@ -53,7 +53,7 @@ export const TextInput = React.memo(
                 );
             default: 
                 return(
-                    <>
+                      <div className={styles.inputContainer}>
                         {label && <Typography variant="subtitle">{label}</Typography>}
                         <Input
                             type={type}
@@ -62,21 +62,50 @@ export const TextInput = React.memo(
                             disabled={disabled}
                             fullWidth={fullWidth}
                             error={!!errorMessage}
-                            sx={sx}
+                            className={`${multiline ? styles.textArea : styles.input} ${validationState ? styles[validationState] : ''}`}
+                            sx={{
+                                ...sx,
+                                '& .MuiOutlinedInput-root': {
+                                    border: validationState === 'error' ? '1px solid #FF0000' :
+                                           validationState === 'success' ? '1px solid #14D81C' :
+                                           '1px solid #DEE2E6',
+                                },
+                                backgroundColor: 'white'
+                            }}
                             multiline={multiline}
                             rows={rows}
                             {...props}
                         />
-                    </>
+                        </div>
                 );
             }
         }
+
+        // Determine the validation hint class based on validation state
+        const getValidationHintClass = () => {
+          switch (validationState) {
+            case 'error':
+              return styles.errorHint;
+            case 'success':
+              return styles.successHint;
+            default:
+              return '';
+          }
+        };
 
         return (
             <div className={`${styles.inputWrapper} ${className || ''}`} style={style}>
               {renderInput()}
               {errorMessage && (
                 <FormHelperText error>{errorMessage}</FormHelperText>
+              )}
+              {validationState && !errorMessage && (
+                <div className={`${styles.validationHint} ${getValidationHintClass()}`}>
+                  <br />
+                  მინიმუმ 2 სიმბოლო
+                  <br />
+                  მაქსიმუმ 255 სიმბოლო
+                </div>
               )}
             </div>
           )
@@ -93,6 +122,8 @@ export const ControlledInput = React.memo(<T extends FieldValues>(
     validationState,
     charCount,
     sx,
+    multiline,
+    rows,
     ...props
   }: ControlledInputProps<T>
 ) => {
@@ -112,6 +143,8 @@ export const ControlledInput = React.memo(<T extends FieldValues>(
           validationState={validationState}
           charCount={charCount}
           sx={sx}
+          multiline={multiline}
+          rows={rows}
         />
       )}
     />

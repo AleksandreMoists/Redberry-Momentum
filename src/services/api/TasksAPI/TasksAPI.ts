@@ -42,7 +42,13 @@ interface TaskPayload {
 
   export const createTask = async (task: TaskPayload): Promise<TaskPayload> => {
     try {
-      const response = await apiClient.post('https://momentum.redberryinternship.ge/api/tasks', task);
+      const response = await apiClient.post('https://momentum.redberryinternship.ge/api/tasks', task, 
+        {
+          headers: {
+            Authorization: 'Bearer 9e6e183c-aced-455d-902c-fb6eba59124b'
+          }
+        }
+      );
       return response.data;
     } catch (error) {
       console.error('Error creating task:', error);

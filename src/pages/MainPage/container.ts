@@ -4,6 +4,7 @@ import { Task } from "../../services/api/TasksAPI/TasksAPI.types";
 import { fetchTasks } from "../../services/api/TasksAPI/TasksAPI"
 import { DepartmentId, departmentOriginalNameMap } from "../../services/enums/apiEnums";
 import { cardData } from "../../utils/mockData"; // Import mock data for fallback
+import { formatDateGeorgian } from "../../utils/fortmattedDateGeorgian";
 
 export const departmentOptions = [
     { id: DepartmentId.HUMAN_RESOURCES, name: departmentOriginalNameMap[DepartmentId.HUMAN_RESOURCES] },
@@ -37,22 +38,36 @@ export const useTasksContainer = (): TasksContainerState => {
     departmentId: null as number | null
   });
 
+  const formatTaskDates = (task: Task): Task => {
+    return {
+      ...task,
+      due_date: task.due_date ? formatDateGeorgian(task.due_date) : task.due_date,
+    };
+  };
+
+  const processTasksWithFormattedDates = (tasksArray: Task[]): Task[] => {
+    return tasksArray.map(task => formatTaskDates(task));
+  };
+
   useEffect(() => {
     const loadTasks = async () => {
       try {
         setLoading(true);
         const data = await fetchTasks();
-        setTasks(data);
-        setFilteredTasks(data);
+        
+        const formattedTasks = processTasksWithFormattedDates(data);
+        
+        setTasks(formattedTasks);
+        setFilteredTasks(formattedTasks);
         setError(null); // Clear any previous errors
       } catch (err) {
         console.error("Error fetching tasks:", err);
         setError(err instanceof Error ? err : new Error('Failed to fetch tasks'));
         
-        // Use mock data as fallback when API fails
         console.log("Using mock data as fallback");
-        setTasks(cardData as unknown as Task[]);
-        setFilteredTasks(cardData as unknown as Task[]);
+        const formattedMockTasks = processTasksWithFormattedDates(cardData as unknown as Task[]);
+        setTasks(formattedMockTasks);
+        setFilteredTasks(formattedMockTasks);
       } finally {
         setLoading(false);
       }

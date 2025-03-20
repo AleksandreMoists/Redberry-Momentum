@@ -5,3 +5,63 @@
   width: 100%;
   gap: 4px;
 }
+
+/* Input container */
+.inputContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Normal input styles */
+.input {
+  width: 550px;
+  height: 45px;
+  gap: 10px;
+  border-radius: 5px;
+  border-width: 1px;
+  padding: 14px;
+  background-color: white;
+}
+
+.error {
+  border-color: #FA4D4D !important;
+}
+/* Text area styles */
+.textArea {
+  width: 550px;
+  height: 133px;
+  gap: 10px;
+  border-radius: 5px;
+  border-width: 1px;
+  padding: 14px;
+  background-color: white;
+}
+
+/* Validation hint text */
+.validationHint {
+  margin-top: 4px;
+  color: #6E7781; /* Default color for validation hint */
+  font-size: 12px;
+}
+
+/* Validation hint color states */
+.errorHint {
+  color: #FA4D4D !important; /* Red for error */
+}
+
+.successHint {
+  color: #08A508 !important; /* Green for success */
+}
+
+/* Character count display */
+.charCount {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.charCountText {
+  color: #6E7781;
+  font-size: 12px;
+}

@@ -30,6 +30,7 @@ interface DynamicDataCardProps {
         avatar: string;
         department_id: number;
     };
+    total_comments: number;
 }
 
 const DynamicDataCard: React.FC<DynamicDataCardProps> = ({
@@ -38,7 +39,8 @@ const DynamicDataCard: React.FC<DynamicDataCardProps> = ({
     due_date,
     priority,
     department,
-    employee
+    employee,
+    total_comments
 }) => {
     return (
         <div className={styles.container}>  
@@ -72,8 +74,9 @@ const DynamicDataCard: React.FC<DynamicDataCardProps> = ({
                 <div>
                     <img src={employee.avatar} alt={`${employee.name} ${employee.surname}`} />
                 </div>
-                <div>
+                <div style={{ display: "flex", flexDirection: 'row', justifyContent: 'center', alignItems: 'center', gap: '4px'}}>
                     <CommentsSvg />
+                    <Typography variant='subtitle'>{total_comments}</Typography>
                 </div>
             </div>
         </div>

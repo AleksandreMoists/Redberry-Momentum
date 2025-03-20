@@ -47,6 +47,9 @@ const CreateTaskPage: React.FC = () => {
                 type='text'
                 validationState={validationStates.name} // Changed from 'title' to match your schema
                 charCount={charCount?.name}
+                sx={{
+                  border: '1px solid #DEE2E6',
+                }}
               />
               <ControlledInput
                 name='description'
@@ -57,6 +60,9 @@ const CreateTaskPage: React.FC = () => {
                 rows={4}
                 validationState={validationStates.description}
                 charCount={charCount?.description}
+                sx={{
+                  border: '1px solid #DEE2E6',
+                }}
               />
               <div className={styles.dropdowns}>
                 <Dropdown
@@ -70,13 +76,13 @@ const CreateTaskPage: React.FC = () => {
                 />
                 
                 <Dropdown
-                  id="create-task-employees"
-                  label="თანამშრომელი"
-                  options={loadingEmployees ? [{id: 0, name: "Loading..."}] : employeeOptions}
-                  onSelect={handleEmployeeSelect}
-                  type="radio"
+                  id='statuses'
+                  label='სტატუსი'
+                  options={statusOptions}
+                  type='radio'
+                  onSelect={handleStatusSelect}
                   variant='task'
-                  placeholder='აირჩიე თანამშრომელი'
+                  placeholder='აირჩიე სტატუსი'
                 />
               </div>
             </div>
@@ -92,17 +98,17 @@ const CreateTaskPage: React.FC = () => {
                   variant='task'
                   placeholder='აირჩიე დეპარტამენტი'
                 />
+                <Dropdown
+                  id="create-task-employees"
+                  label="თანამშრომელი"
+                  options={loadingEmployees ? [{id: 0, name: "Loading..."}] : employeeOptions}
+                  onSelect={handleEmployeeSelect}
+                  type="radio"
+                  variant='task'
+                  placeholder='აირჩიე თანამშრომელი'
+                />
               </div>
               <div className={styles.dropdownStyle}>
-                <Dropdown
-                  id='statuses'
-                  label='სტატუსი'
-                  options={statusOptions}
-                  type='radio'
-                  onSelect={handleStatusSelect}
-                  variant='task'
-                  placeholder='აირჩიე სტატუსი'
-                />
               </div>
               <div className={styles.dateStyle}>
                 <Typography variant="caption">დედლაინის თარიღი</Typography>
