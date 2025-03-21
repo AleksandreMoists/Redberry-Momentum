@@ -5,7 +5,7 @@ export interface Comments {
     parent_id: null;
     author_avatar: string;
     author_nickname: string;
-    subcomments: [
+    sub_comments: [
         {
             id: number;
             text: string;
@@ -21,5 +21,5 @@ export interface CommentPayload {
     id: number;
     text: string;
     task_id: number;
-    parent_id: null;
+    parent_id: number | null;
 }

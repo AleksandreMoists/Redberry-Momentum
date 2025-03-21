@@ -17,10 +17,10 @@ export const priorities = [
 ]
 
 export const statusData = [
-    {id: 0, label: "დასაწყები", color: "#F7BC30"},
-    {id: 1, label: "პროგრესში", color: "#FB5607"},
-    {id: 2, label: "მზად ტესტირებისთვის", color: "#FF006E"},
-    {id: 3, label: "დასრულებული", color: "#3A86FF"},
+    {id: 1, label: "დასაწყები", color: "#F7BC30"},
+    {id: 2, label: "პროგრესში", color: "#FB5607"},
+    {id: 3, label: "მზად ტესტირებისთვის", color: "#FF006E"},
+    {id: 4, label: "დასრულებული", color: "#3A86FF"},
 ];
 
 export const cardData = [

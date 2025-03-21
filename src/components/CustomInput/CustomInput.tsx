@@ -18,6 +18,7 @@ export const TextInput = React.memo(
     onChange,
     validationState,
     charCount,
+    placeholder,
     sx,
     multiline = false,
     rows,
@@ -124,6 +125,7 @@ export const ControlledInput = React.memo(<T extends FieldValues>(
     sx,
     multiline,
     rows,
+    placeholder,
     ...props
   }: ControlledInputProps<T>
 ) => {
@@ -145,6 +147,7 @@ export const ControlledInput = React.memo(<T extends FieldValues>(
           sx={sx}
           multiline={multiline}
           rows={rows}
+          placeholder={placeholder}
         />
       )}
     />

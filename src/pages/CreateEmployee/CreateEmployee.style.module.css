@@ -1,0 +1,91 @@
+/* CreateEmployee.style.module.css */
+
+.modalOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modalContent {
+    position: relative;
+    width: 913px;
+    height: 766px;
+    background: white;
+    border-radius: 10px;
+    padding: 40px 50px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 37px;
+  }
+  
+  .modalHeader {
+    text-align: center;
+  }
+  
+  .closeButton {
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    cursor: pointer;
+    padding: 8px;
+  }
+  
+  .form {
+    display: flex;
+    flex-direction: column;
+    gap: 37px;
+    height: 100%;
+  }
+  
+  .formGroup {
+    width: 100%;
+  }
+  
+  .inputContainer {
+    width: calc(50% - 12px);
+  }
+  
+  /* Target the MUI class directly with higher specificity */
+  .inputContainer :global(.MuiInputBase-root),
+  .inputContainer :global(.css-3cd2v7-MuiInputBase-root-MuiInput-root),
+  .inputContainer :global(.MuiOutlinedInput-root) {
+    width: 100% !important;
+    font-family: inherit !important; /* Override font-family if needed */
+  }
+  
+  /* Keep your existing styles for the row */
+  .inputRow {
+    display: flex;
+    gap: 24px;
+    width: 100%;
+  }
+  
+  .dropdown {
+    width: 50%;
+    flex: none;
+  }
+  
+  .buttonGroup {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: auto;
+  }
+  
+  .errorMessage {
+    color: #dc3545;
+    margin-top: -20px;
+    text-align: center;
+  }
+
+  
+  
+  /* Add any additional styling for Typography and Button components if needed */

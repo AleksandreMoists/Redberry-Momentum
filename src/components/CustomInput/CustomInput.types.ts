@@ -16,6 +16,7 @@ export type TextInputProps = {
   sx?: any; // For MUI styling object
   multiline?: boolean; // Add multiline prop
   rows?: number; // Add rows prop
+  placeholder?: string;
 };
 
 export type ControlledInputProps<T extends FieldValues> = TextInputProps &
