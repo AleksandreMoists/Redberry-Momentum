@@ -5,6 +5,8 @@ import { fetchTasks } from "../../services/api/TasksAPI/TasksAPI"
 import { DepartmentId, departmentOriginalNameMap } from "../../services/enums/apiEnums";
 import { cardData } from "../../utils/mockData"; // Import mock data for fallback
 import { formatDateGeorgian } from "../../utils/fortmattedDateGeorgian";
+import { fetchEmployees } from "../../services/api/EmployeesAPI/Employees";
+import { Employee } from "../../services/api/EmployeesAPI/EmployeesAPI.types";
 
 export const departmentOptions = [
     { id: DepartmentId.HUMAN_RESOURCES, name: departmentOriginalNameMap[DepartmentId.HUMAN_RESOURCES] },
@@ -21,10 +23,11 @@ export interface TasksContainerState {
   loading: boolean;
   error: Error | null;
   filteredTasks: Task[];
-  filterByStatus: (statusId: number | null) => void;
+  filterByEmployee: (employeeId: number | null) => void;
   filterByPriority: (priorityId: number | null) => void;
   filterByDepartment: (departmentId: number | null) => void;
   resetFilters: () => void;
+  employeeOptions: Employee[]
 }
 
 export const useTasksContainer = (): TasksContainerState => {
@@ -32,10 +35,12 @@ export const useTasksContainer = (): TasksContainerState => {
   const [filteredTasks, setFilteredTasks] = useState<Task[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<Error | null>(null);
+  const [employeeOptions, setEmployeeOptions] = useState<Employee[]>([])
   const [filters, setFilters] = useState({
     statusId: null as number | null,
     priorityId: null as number | null,
-    departmentId: null as number | null
+    departmentId: null as number | null,
+    employeeId: null as number | null
   });
 
   const formatTaskDates = (task: Task): Task => {
@@ -48,6 +53,21 @@ export const useTasksContainer = (): TasksContainerState => {
   const processTasksWithFormattedDates = (tasksArray: Task[]): Task[] => {
     return tasksArray.map(task => formatTaskDates(task));
   };
+
+  useEffect(() => {
+    const loadingEmployees = async () => {
+      try {
+        const data = await fetchEmployees();
+        console.log("Employees data", data);
+        setEmployeeOptions(data);
+      } catch(err) {
+        console.error("Error fetching employees:", err);
+        setEmployeeOptions([]);
+      }
+    };
+
+    loadingEmployees();
+  }, []); 
 
   useEffect(() => {
     const loadTasks = async () => {
@@ -95,18 +115,22 @@ export const useTasksContainer = (): TasksContainerState => {
         result = result.filter(task => task.department?.id === filters.departmentId);
       }
       
+      if (filters.employeeId !== null) {
+        result = result.filter(task => task.employee?.id === filters.employeeId);
+      }
+      
       setFilteredTasks(result);
     } catch (err) {
       console.error("Error filtering tasks:", err);
       // If filtering fails, reset to all tasks
       setFilteredTasks(tasks);
     }
-  }, [tasks, filters.statusId, filters.priorityId, filters.departmentId]);
+  }, [tasks, filters.statusId, filters.priorityId, filters.departmentId, filters.employeeId]);
 
-  // Filter functions - Connect with Dropdown in feature.
-  const filterByStatus = useCallback((statusId: number | null) => {
-    setFilters(prev => ({ ...prev, statusId }));
-  }, []);
+
+  const filterByEmployee = useCallback((employeeId: number | null) => {
+    setFilters(prev => ({ ...prev, employeeId }))
+  }, [])
 
   const filterByPriority = useCallback((priorityId: number | null) => {
     setFilters(prev => ({ ...prev, priorityId }));
@@ -120,7 +144,8 @@ export const useTasksContainer = (): TasksContainerState => {
     setFilters({
       statusId: null,
       priorityId: null,
-      departmentId: null
+      departmentId: null,
+      employeeId: null
     });
   }, []);
 
@@ -129,9 +154,10 @@ export const useTasksContainer = (): TasksContainerState => {
     loading,
     error,
     filteredTasks,
-    filterByStatus,
+    filterByEmployee,
     filterByPriority,
     filterByDepartment,
-    resetFilters
+    resetFilters,
+    employeeOptions,
   };
 };

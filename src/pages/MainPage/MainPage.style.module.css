@@ -134,3 +134,60 @@
 .clearAllStyle {
     color: var(--bg-primary);
 }
+
+.kanbanBoard {
+  display: flex;
+  gap: 50px;
+  width: 100%;
+  margin-top: 15px; 
+}
+
+.statusColumn {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 250px;
+  border-radius: 10px;
+}
+
+.columnHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  color: white;
+  border-radius: 10px;
+  height: 54px;
+}
+
+.columnLabel {
+  font-weight: normal;
+  color: var(--text-white) !important;
+}
+
+
+.columnContent {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-top: 20px;
+}
+
+.emptyColumn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80px;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.noResults {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 20px;
+}

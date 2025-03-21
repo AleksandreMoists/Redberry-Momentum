@@ -1,42 +1,44 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./MainPage.style.module.css";
 import Typography from "../../components/Typography/Typography";
 import Layout from "../../components/Layout/Layout";
 import DynamicDataCard from "../../components/DynamicDataCard/DynamicDataCard";
 import { statusData } from "../../utils/mockData";
-import { cardData } from "../../utils/mockData";
 import { Dropdown } from "../../components/Dropdown/Dropdown";
 import SelectedCategory from "../../components/SelectedCategory/SelectedCategory";
-import { useTasksContainer } from './container';
-import { DepartmentId, departmentOriginalNameMap } from "../../services/enums/apiEnums";  
-
-
-const departmentOptions = [
-    { id: DepartmentId.HUMAN_RESOURCES, name: departmentOriginalNameMap[DepartmentId.HUMAN_RESOURCES] },
-    { id: DepartmentId.TECHNOLOGY, name: departmentOriginalNameMap[DepartmentId.TECHNOLOGY] },
-    { id: DepartmentId.FINANCE, name: departmentOriginalNameMap[DepartmentId.FINANCE] },
-    { id: DepartmentId.SALES_MARKETING, name: departmentOriginalNameMap[DepartmentId.SALES_MARKETING] },
-    { id: DepartmentId.ADMINISTRATION, name: departmentOriginalNameMap[DepartmentId.ADMINISTRATION] },
-    { id: DepartmentId.LOGISTICS, name: departmentOriginalNameMap[DepartmentId.LOGISTICS] },
-    { id: DepartmentId.MEDIA, name: departmentOriginalNameMap[DepartmentId.MEDIA] },
-];
-
-const priorityOptions = [
-    { id: 1, name: "High" },
-    { id: 2, name: "Medium" },
-    { id: 3, name: "Low" }
-];
-
-const employeeOptions = [
-    { id: 1, name: "John Doe" },
-    { id: 2, name: "Jane Smith" },
-    { id: 3, name: "Bob Johnson" }
-];
+import { useTasksContainer, departmentOptions } from './container';
+import { priorities } from "../../utils/mockData";
 
 const MainPage: React.FC = () => {
     const [departments, setDepartments] = useState<number[]>([]);
     const [priorities, setPriorities] = useState<number[]>([]);
     const [employees, setEmployees] = useState<number[]>([]);
+
+    const { 
+        filteredTasks, 
+        loading, 
+        error,
+        filterByEmployee,
+        filterByPriority,
+        filterByDepartment,
+        resetFilters,
+        employeeOptions
+    } = useTasksContainer();
+
+    // Apply filters whenever selections change
+    useEffect(() => {
+        // Apply department filter
+        const departmentId = departments.length > 0 ? departments[0] : null;
+        filterByDepartment(departmentId);
+        
+        // Apply priority filter
+        const priorityId = priorities.length > 0 ? priorities[0] : null;
+        filterByPriority(priorityId);
+        
+        // Apply employee filter
+        const employeeId = employees.length > 0 ? employees[0] : null;
+        filterByEmployee(employeeId);
+    }, [departments, priorities, employees, filterByDepartment, filterByPriority, filterByEmployee]);
 
     const handleRemoveItem = (type: string, id: number) => {
         if (type === 'department') {
@@ -52,16 +54,26 @@ const MainPage: React.FC = () => {
         setDepartments([]);
         setPriorities([]);
         setEmployees([]);
+        resetFilters(); // Clear all filters in the container
     };
 
-    const { 
-        filteredTasks, 
-        loading, 
-        error,
-        filterByStatus,
-        filterByPriority,
-        filterByDepartment 
-    } = useTasksContainer();
+    // Create a properly formatted employee options array
+    const formattedEmployeeOptions = employeeOptions.map(emp => ({
+        id: emp.id,
+        name: `${emp.name} ${emp.surname}`
+    }));
+
+    // Define priority options
+    const priorityOptions = [
+        { id: 3, name: "მაღალი" },
+        { id: 2, name: "საშუალო" },
+        { id: 1, name: "დაბალი" }
+    ];
+
+    // Group tasks by status id
+    const getTasksByStatus = (statusId: number) => {
+        return filteredTasks.filter(task => task.status.id === statusId);
+    };
 
     if (loading) return <div>Loading tasks...</div>;
     if (error) return <div>Error loading tasks: {error.message}</div>;
@@ -77,6 +89,7 @@ const MainPage: React.FC = () => {
                     options={departmentOptions}
                     onSelect={setDepartments}
                     externalSelected={departments}
+                    type="radio" // Changed to radio to enforce single selection
                 />
 
                 <Dropdown 
@@ -85,12 +98,13 @@ const MainPage: React.FC = () => {
                     options={priorityOptions}
                     onSelect={setPriorities}
                     externalSelected={priorities}
+                    type="radio" // Changed to radio to enforce single selection
                 />
 
                 <Dropdown 
                     id="employees"
                     label="თანამშრომელი"
-                    options={employeeOptions}
+                    options={formattedEmployeeOptions}
                     onSelect={setEmployees}
                     type="radio"
                     externalSelected={employees}
@@ -103,7 +117,7 @@ const MainPage: React.FC = () => {
                         selectedEmployees={employees}
                         departmentOptions={departmentOptions}
                         priorityOptions={priorityOptions}
-                        employeeOptions={employeeOptions}
+                        employeeOptions={formattedEmployeeOptions}
                         onRemove={handleRemoveItem}
                         onClearAll={handleClearAll}
                     />
@@ -111,28 +125,45 @@ const MainPage: React.FC = () => {
             </div>
 
             <div className={styles.main}>
-                 <div className={styles.userStatus}>
-                    {statusData.map((item) => (
-                        <span
-                            key={item.id}
-                            className={styles.userStatusStyle}
-                            style={{ backgroundColor: item.color }}
-                        >
-                            <Typography variant="h2" className={styles.userStatusLabel}>{item.label}</Typography>
-                        </span>
+                <div className={styles.kanbanBoard}>
+                    {statusData.map((status) => (
+                        <div key={status.id} className={styles.statusColumn}>
+                            <div 
+                                className={styles.columnHeader} 
+                                style={{ backgroundColor: status.color }}
+                            >
+                                <Typography variant="h2" className={styles.columnLabel}>
+                                    {status.label}
+                                </Typography>
+                            </div>
+                            
+                            <div className={styles.columnContent}>
+                                {getTasksByStatus(status.id).length > 0 ? (
+                                    getTasksByStatus(status.id).map((task, index) => (
+                                        <DynamicDataCard 
+                                            key={task.id || index}
+                                            {...task}
+                                        />
+                                    ))
+                                ) : (
+                                    <div className={styles.emptyColumn}>
+                                        <Typography variant="caption">
+                                            No tasks in this status
+                                        </Typography>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
                     ))}
-                 </div>
-
-                 <div className={styles.dynamicDataCards}>
-                    {filteredTasks.map((card, index) => (
-                        <DynamicDataCard 
-                            key={index}
-                            {...card}
-                        />
-                    ))}
-                 </div>
+                </div>
+                
+                {filteredTasks.length === 0 && (
+                    <div className={styles.noResults}>
+                        <Typography variant="h2">No tasks found with the selected filters</Typography>
+                    </div>
+                )}
             </div>
-            </>
+        </>
     );
 };
 
