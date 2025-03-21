@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import MainPage from "../pages/MainPage/MainPage";
 import CreateTaskPage from "../pages/CreateTask/CreateTask";
 import Layout from "../components/Layout/Layout";
-// import TaskInnerPageContainer from "../pages/TaskInnerPage/TaskInnerPageContainer";
+import TaskInnerPageContainer from "../pages/TaskInnerPage/TaskInnerPageContainer";
 
 const routes = [
   {
@@ -15,10 +15,10 @@ const routes = [
         index: true,
         element: <MainPage />,
       },
-      // {
-      //   path: "task/:id",
-      //   element: <TaskInnerPageContainer />,
-      // },
+      {
+        path: "task/:id",
+        element: <TaskInnerPageContainer />,
+      },
       {
         path: "create-task",
         element: <CreateTaskPage />,
