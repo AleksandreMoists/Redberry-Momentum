@@ -34,11 +34,55 @@
     row-gap: 30px;
 }
 
+.taskButton {
+    font-family: 'FiraGO';
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 100%;
+    color: #2A2A2A;
+}
+
 .taskDetailGroup {
     display: flex;
     flex-direction: row;
     gap: 70px;
     height: 70px;
+}
+
+.textStyle {
+    font-family: FiraGO;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 150%;
+    letter-spacing: 0%;
+}
+
+.avatarStyle {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.userStyle {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+}
+
+.employeeInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.employeeDepartment {
+    font-family: FiraGO;
+    font-weight: 300;
+    font-size: 11px;
+    line-height: 100%;
+    letter-spacing: 0%;
+    text-align: right;
+
 }
 
 .rightSide {
@@ -101,7 +145,6 @@
     flex-direction: column;
     padding: 16px;
     margin-bottom: 20px;
-    background-color: #f9f9f9;
     border-radius: 8px;
     position: relative;
 }

@@ -130,7 +130,7 @@ const {
                     </div>
                 </div>
                 <div className={styles.taskDetails}>
-                    <Typography variant="subtitle">დავალების დეტალები</Typography>
+                    <Typography variant="subtitle" className={styles.taskButton}>დავალების დეტალები</Typography>
                     <div className={styles.taskDetailGroup}>
                         <Typography variant="caption">სტატუსი</Typography>
                         <Dropdown 
@@ -148,11 +148,17 @@ const {
                     </div>
                     <div className={styles.taskDetailGroup}>
                         <Typography variant="caption">თანამშრომელი</Typography>
-                        <Typography variant="h2">{employee.name} {employee.surname}</Typography>
+                        <div className={styles.userStyle}>
+                            <img src={employee.avatar} alt={employee.name[0]} className={styles.avatarStyle}  />
+                            <span className={styles.employeeInfo}>
+                                <Typography variant="subtitle" className={styles.employeeDepartment}>{department.name}</Typography>
+                                <Typography variant="h2" className={styles.textStyle}>{employee.name} {employee.surname}</Typography>
+                            </span>
+                        </div>
                     </div>
                     <div className={styles.taskDetailGroup}>
                         <Typography variant="caption">დასრულების თარიღი</Typography>
-                        <Typography variant="h2">{formattedDueDate}</Typography>
+                        <Typography variant="h2" className={styles.textStyle}>{formattedDueDate}</Typography>
                     </div>
                 </div>
             </div>
