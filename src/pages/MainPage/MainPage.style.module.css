@@ -152,8 +152,7 @@
 
 .columnHeader {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
   padding: 15px;
   color: white;
   border-radius: 10px;
