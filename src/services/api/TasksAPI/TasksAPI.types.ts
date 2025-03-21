@@ -42,3 +42,14 @@ export interface TaskPost {
     status_id: number;
     due_date: string | null;
   }
+
+export interface TaskPut {
+    id: number;
+    name: string;
+    description: string;
+    employee_id: number;
+    department_id: number | null;
+    priority_id: number;
+    status_id: number;
+    due_date: string | null;
+}

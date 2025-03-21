@@ -1,6 +1,6 @@
 import axios from "axios";
 import apiClient from "../api";
-import { Task } from "./TasksAPI.types";
+import { Task, TaskPut } from "./TasksAPI.types";
 
 
 interface TaskPayload {
@@ -32,7 +32,11 @@ interface TaskPayload {
   
   export const fetchTaskById = async (id: number): Promise<Task> => {
     try {
-      const response = await axios.get(`https://momentum.redberryinternship.ge/api/tasks/${id}`);
+      const response = await axios.get(`https://momentum.redberryinternship.ge/api/tasks/${id}`, {
+        headers: {
+          Authorization: 'Bearer 9e6e183c-aced-455d-902c-fb6eba59124b'
+        }
+      });
       return response.data;
     } catch (error) {
       console.error(`Error fetching task with ID ${id}:`, error);
@@ -55,3 +59,16 @@ interface TaskPayload {
       throw error;
     }
   }
+
+  export const updateTask = async (taskId: number, taskData: Partial<TaskPut>): Promise<Task> => {
+    try {
+        const response = await axios.put(`https://momentum.redberryinternship.ge/api/tasks/${taskId}`, taskData, {
+          headers: {
+            Authorization: 'Bearer 9e6e183c-aced-455d-902c-fb6eba59124b'
+          }
+        });
+        return response.data;
+    } catch (error) {
+        throw error
+    }
+  };
