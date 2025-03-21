@@ -4,13 +4,13 @@ import Typography from '../../components/Typography/Typography';
 import { ControlledInput } from '../../components/CustomInput/CustomInput';
 import { Dropdown } from '../../components/Dropdown/Dropdown';
 import { priorities } from '../../utils/mockData';
-import { departmentOptions } from '../MainPage/container';
 import Button from '../../components/Button/Button';
 import { useCreateTaskForm } from './container';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
+import { departmentOptions } from '../MainPage/container';
 
 const CreateTaskPage: React.FC = () => {
   const { 
@@ -24,12 +24,14 @@ const CreateTaskPage: React.FC = () => {
     handleDepartmentSelect,
     handlePrioritySelect,
     handleStatusSelect,
-    handleEmployeeSelect,
     handleDateChange,
+    statusOptions,
+    setValue,
     employeeOptions,
     loadingEmployees,
-    statusOptions,
-    setValue
+    isEmployeeDropdownDisabled,
+    handleEmployeeSelect,
+    isFormValid
   } = useCreateTaskForm();
 
   return (
@@ -67,17 +69,18 @@ const CreateTaskPage: React.FC = () => {
               <div className={styles.dropdowns}>
                 <Dropdown
                   id='priorities'
-                  label='პრიორიტეტი'
+                  label='პრიორიტეტი*'
                   options={priorities}
                   type='radio'
                   onSelect={handlePrioritySelect}
                   variant='task'
                   placeholder='აირჩიე პრიორიტეტი'
+                  defaultSelected={[{id: 2, name: "საშუალო",}]}
                 />
                 
                 <Dropdown
                   id='statuses'
-                  label='სტატუსი'
+                  label='სტატუსი*'
                   options={statusOptions}
                   type='radio'
                   onSelect={handleStatusSelect}
@@ -91,7 +94,7 @@ const CreateTaskPage: React.FC = () => {
               <div className={styles.dropdownStyle}>
                 <Dropdown 
                   id='departments'
-                  label='დეპარტამენტი'
+                  label='დეპარტამენტი*'
                   options={departmentOptions}
                   type='radio'
                   onSelect={handleDepartmentSelect}
@@ -100,13 +103,14 @@ const CreateTaskPage: React.FC = () => {
                 />
                 <Dropdown
                   id="create-task-employees"
-                  label="თანამშრომელი"
+                  label="პასუხისმგებელი თანამშრომელი*"
                   options={loadingEmployees ? [{id: 0, name: "Loading..."}] : employeeOptions}
                   onSelect={handleEmployeeSelect}
                   type="radio"
                   variant='task'
                   placeholder='აირჩიე თანამშრომელი'
-                />
+                  disabled={isEmployeeDropdownDisabled} // Pass the disabled state here
+                  />
               </div>
               <div className={styles.dropdownStyle}>
               </div>
@@ -135,7 +139,7 @@ const CreateTaskPage: React.FC = () => {
             <Button
               type="submit"
               variant='primary'
-              disabled={isSubmitting}
+              disabled={!isFormValid || isSubmitting}
               style={{ fontFamily: 'FiraGO', fontSize: '18px', fontWeight: 400 }}
             >
               {isSubmitting ? 'დავალების შექმნა...' : 'დავალების შექმნა'}
