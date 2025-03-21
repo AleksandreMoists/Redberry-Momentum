@@ -1,0 +1,188 @@
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.leftSide {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.taskInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.priorityDepartment {
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+}
+
+.taskDescription {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.taskDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    row-gap: 30px;
+}
+
+.taskDetailGroup {
+    display: flex;
+    flex-direction: row;
+    gap: 70px;
+    height: 70px;
+}
+
+.rightSide {
+    display: flex;
+    flex-direction: column;
+    width: 741px;
+    height: 975px;
+    gap: 50px;
+    background-color: #F8F3FEA6;
+    margin-top: 50px;
+    padding: 50px;
+}
+
+    .comments {
+        display: inline-block;
+        position: relative;
+    }
+
+    .commentContainer {
+        position: relative;
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    /* This targets the wrapper around the input created by ControlledInput */
+    .commentContainer > div {
+        width: 100%;
+    }
+
+    .commentButton {
+        position: absolute;
+        right: 16px;
+        bottom: 16px; /* Position from bottom instead of top */
+        border-radius: 20px;
+        border: none;
+        width: 155px;
+        height: 35px;
+        z-index: 2; /* Ensure button appears above input */
+    }
+
+.commentCount {
+    display: flex;
+    gap: 7px;    
+    width: 172px;
+    height: 24px;
+}
+
+.commentStyle {
+    border-radius: 30px;
+    background-color: var(--bg-primary);
+    width: 30px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.comment {
+    display: flex;
+    flex-direction: column;
+    padding: 16px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    position: relative;
+}
+
+.commentHeader, .subcommentHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.commentContent, .subcommentContent {
+    margin-left: 44px; /* Aligns with the username, after the avatar */
+    margin-bottom: 12px;
+}
+
+.avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+.avatarPlaceholder {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #8338EC;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    margin-right: 8px;
+}
+
+.user {
+    display: flex;
+    flex-direction: column;
+}
+
+.commentActions {
+    display: flex;
+    justify-content: flex-start;
+    margin-left: 44px;
+    margin-bottom: 8px;
+}
+
+.commentAction {
+    padding: 4px 8px;
+    font-size: 14px;
+    color: #8338EC;
+}
+
+.subcomments {
+    margin-top: 16px;
+    margin-left: 44px; /* Indent subcomments */
+    padding-left: 12px;
+}
+
+.subcomment {
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 8px;
+}
+
+.replyFormContainer {
+    margin-top: 8px;
+    margin-left: 44px;
+    padding: 12px;
+    background-color: #f7f2fe;
+    border-radius: 8px;
+}
+
+.replyActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+    margin-top: 8px;
+}
+
+.subcommentActions {
+    display: flex;
+    gap: 10px;
+}
