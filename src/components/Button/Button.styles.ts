@@ -14,6 +14,10 @@ export const buttonStyles = {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-weight: 500; // Medium font weight for better readability
+    white-space: nowrap; // Prevents text wrapping within button
+    overflow: hidden; // Prevents text overflow
+    text-overflow: ellipsis; // Adds ellipsis for text that overflows
   `,
 
   sizes: {
@@ -42,6 +46,11 @@ export const buttonStyles = {
         background-color: var(--bg-primary);
         opacity: 0.9;
       }
+      &:disabled {
+        background-color: var(--bg-primary);
+        opacity: 0.5;
+        color: var(--text-white);
+      }
     `,
     secondary: () => css`
       background-color: var(--bg-secondary);
@@ -50,6 +59,11 @@ export const buttonStyles = {
         background-color: var(--bg-secondary);
         opacity: 0.9;
       }
+      &:disabled {
+        background-color: var(--bg-secondary);
+        opacity: 0.5;
+        color: var(--text-white);
+      }
     `,
     outlined: () => css`
       background-color: transparent;
@@ -57,6 +71,23 @@ export const buttonStyles = {
       color: var(--bg-outline);
       &:hover {
         background-color: rgba(131, 56, 236, 0.04); // #8338EC with 0.04 opacity
+      }
+      &:disabled {
+        border-color: var(--bg-outline);
+        opacity: 0.5;
+        color: var(--bg-outline);
+      }
+    `,
+    text: () => css`
+      background-color: transparent;
+      color: var(--bg-primary);
+      padding: 8px 12px;
+      &:hover {
+        background-color: rgba(131, 56, 236, 0.04);
+      }
+      &:disabled {
+        color: var(--bg-primary);
+        opacity: 0.5;
       }
     `
   }
@@ -69,5 +100,15 @@ export const StyledButton = styled(MuiButton)<{ size?: ButtonSize; variant?: But
   ({ theme, size, variant }) => ({
     ...buttonStyles.base,
     ...(size && buttonStyles.sizes[size]),
-    ...(variant && buttonStyles.variants[variant]())
+    ...(variant && buttonStyles.variants[variant]()),
+    '& .MuiButton-startIcon': {
+      marginRight: '8px'
+    },
+    '& .MuiButton-endIcon': {
+      marginLeft: '8px'
+    },
+    '&.Mui-disabled': {
+      cursor: 'not-allowed',
+      pointerEvents: 'auto'
+    }
 }));

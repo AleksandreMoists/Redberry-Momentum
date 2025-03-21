@@ -2,7 +2,7 @@ import { Button as MuiButton, ButtonProps as MuiButtonProps } from '@mui/materia
 import { styled } from '@mui/material/styles';
 
 interface ButtonProps extends Omit<MuiButtonProps, 'variant'> {
-  variant?: 'primary' | 'secondary' | 'outlined';
+  variant?: 'primary' | 'secondary' | 'outlined' | 'text';
   size?: 'small' | 'medium' | 'large';
 }
 
