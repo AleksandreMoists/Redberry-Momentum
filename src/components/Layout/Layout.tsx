@@ -1,13 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 import Typography from '../Typography/Typography';
 import Button from '../Button/Button';
 import MomentumSvg from '../../assets/SVG/MomentumSvg';
 import PlusSvg from '../../assets/SVG/PlusSvg';
 import styles from './Layout.style.module.css';
+import CreateEmployeeModal from '../../pages/CreateEmployee/CreateEmployee';
 
 export const Layout: React.FC = () => {
   const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleEmployeeSubmit = () => {
+    // Handle successful employee creation
+    setIsModalOpen(false);
+    // You could optionally add a success message or refresh data here
+  };
 
   return (
     <div className={styles.container}>
@@ -27,7 +43,7 @@ export const Layout: React.FC = () => {
           <Button 
             type="button" 
             variant="outlined" 
-            onClick={() => navigate('/create-employee')}
+            onClick={handleOpenModal}
           >
             თანამშრომლის შექმნა
           </Button>
@@ -41,6 +57,14 @@ export const Layout: React.FC = () => {
           </Button>
         </div>
       </div>
+      
+      {isModalOpen && (
+        <CreateEmployeeModal 
+          isOpen={isModalOpen} 
+          onClose={handleCloseModal}
+          onSubmit={handleEmployeeSubmit}
+        />
+      )}
       
       <Outlet />
     </div>

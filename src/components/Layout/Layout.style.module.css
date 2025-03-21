@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
 .container {
     display: flex;
     flex-direction: column;
@@ -24,7 +26,8 @@
     font-weight: 400;
     line-height: 100%;
     color: #8338EC !important;
-    font-family: 'Fredoka One';
+    font-family: 'Fredoka One', cursive;
+    letter-spacing: 0.5px; /* Adding slight letter spacing for better readability */
 }
 
 .buttons {
