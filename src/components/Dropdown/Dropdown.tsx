@@ -6,16 +6,19 @@ import { useDropdown } from './DropdownContext';
 import Typography from '../Typography/Typography';
 
 interface DropdownProps {
-    label: string;
+    label?: string;
     options: Array<{ id: number; name: string }>;
     onSelect: (selectedItems: number[]) => void;
     id: string;
     type?: 'checkbox' | 'radio';
     externalSelected?: number[];
-    variant?: 'default' | 'task' | 'employee';  // Added employee variant
+    variant?: 'default' | 'task' | 'employee';
     placeholder?: string;
     containerClassName?: string;
     containerStyle?: React.CSSProperties;
+    disabled?: boolean;
+    defaultSelected?: Array<{ id: number; name: string }>;
+    autoClose?: boolean; // Added option to auto-close dropdown after selection
 }
 
 const Dropdown: React.FC<DropdownProps> = ({ 
@@ -28,18 +31,47 @@ const Dropdown: React.FC<DropdownProps> = ({
     variant = 'default',
     placeholder = 'აირჩიე',
     containerClassName = '',
-    containerStyle = {}
+    containerStyle = {},
+    disabled = false,
+    defaultSelected = [],
+    autoClose = false // Default to false for backward compatibility
 }) => {
     const dropdownId = useId(); 
     const { openDropdownId, setOpenDropdownId } = useDropdown();
     const isOpen = openDropdownId === dropdownId;
     
+    // Modified initialization to work with defaultSelected type
     const [selected, setSelected] = useState<number[]>(() => {
+        // Try to get from localStorage first
         const saved = localStorage.getItem(`dropdown_${id}`);
-        return saved ? JSON.parse(saved) : [];
+        if (saved) {
+            return JSON.parse(saved);
+        }
+        
+        if (externalSelected !== undefined) {
+            return externalSelected;
+        }
+        
+        return defaultSelected.map(item => item.id);
     });
     
-    const [tempSelected, setTempSelected] = useState<number[]>([]);
+    const [tempSelected, setTempSelected] = useState<number[]>(selected);
+
+    useEffect(() => {
+        if (defaultSelected && defaultSelected.length > 0 && !externalSelected) {
+            const defaultIds = defaultSelected.map(item => item.id);
+            
+            const currentIds = JSON.stringify(selected.sort());
+            const newIds = JSON.stringify(defaultIds.sort());
+            
+            if (currentIds !== newIds) {
+                setSelected(defaultIds);
+                setTempSelected(defaultIds);
+                
+                onSelect(defaultIds);
+            }
+        }
+    }, [defaultSelected]); 
 
     // Update internal state when external selected items change
     useEffect(() => {
@@ -64,41 +96,57 @@ const Dropdown: React.FC<DropdownProps> = ({
     }, [isOpen, selected]);
 
     const handleToggle = useCallback((e: React.MouseEvent) => {
-        e.preventDefault(); // Prevent form submission
-        e.stopPropagation(); // Stop event bubbling
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Don't toggle if disabled
+        if (disabled) return;
         
         if (isOpen) {
             setOpenDropdownId(null);
         } else {
             setOpenDropdownId(dropdownId);
         }
-    }, [isOpen, setOpenDropdownId, dropdownId]);
+    }, [isOpen, setOpenDropdownId, dropdownId, disabled]);
 
-    // Simplified handlers that directly update both temp and final state
     const handleItemSelect = useCallback((itemId: number) => (e: React.MouseEvent) => {
-        e.preventDefault(); // Prevent form submission
-        e.stopPropagation(); // Stop event bubbling
+        // Don't process if disabled
+        if (disabled) return;
         
-        // For radio buttons (single select)
+        e.preventDefault();
+        e.stopPropagation();
+        
+        let newSelection: number[];
+        
         if (type === 'radio') {
-            // Toggle selection: if already selected, clear it; otherwise select it
-            const newSelection = tempSelected.includes(itemId) ? [] : [itemId];
+            newSelection = tempSelected.includes(itemId) ? [] : [itemId];
+            // For radio type, we always want to close after selection
+            const shouldClose = true;
+            
             setTempSelected(newSelection);
             setSelected(newSelection);
             onSelect(newSelection);
-            // Close dropdown after selection for radio type
-            setOpenDropdownId(null);
+            
+            if (shouldClose) {
+                setOpenDropdownId(null);
+            }
             return;
         }
         
-        // For checkboxes (multi-select)
-        const newSelection = tempSelected.includes(itemId)
+        // Checkbox type selection logic
+        newSelection = tempSelected.includes(itemId)
             ? tempSelected.filter(id => id !== itemId)
             : [...tempSelected, itemId];
+            
         setTempSelected(newSelection);
         setSelected(newSelection);
         onSelect(newSelection);
-    }, [tempSelected, setTempSelected, setSelected, onSelect, setOpenDropdownId, type]);
+        
+        // Auto close for checkbox if that option is enabled
+        if (autoClose) {
+            setOpenDropdownId(null);
+        }
+    }, [tempSelected, setTempSelected, setSelected, onSelect, setOpenDropdownId, type, disabled, autoClose]);
 
     useEffect(() => {
         const handleClickOutside = (event: MouseEvent) => {
@@ -115,7 +163,6 @@ const Dropdown: React.FC<DropdownProps> = ({
         };
     }, [isOpen, setOpenDropdownId, selected]);
 
-    // When API data loads
     useEffect(() => {
         if (options.length > 0) {
             setSelected(prev => 
@@ -124,7 +171,6 @@ const Dropdown: React.FC<DropdownProps> = ({
         }
     }, [options]);
 
-    // Create clickable menu items where the entire row is clickable
     const taskMenuItems = useMemo(() => {
         return memoizedOptions.map(option => (
             <div 
@@ -137,13 +183,13 @@ const Dropdown: React.FC<DropdownProps> = ({
                     checked={tempSelected.includes(option.id)}
                     readOnly
                     className={styles.checkbox}
+                    disabled={disabled}
                 />
                 <span className={styles.menuItemText}>{option.name}</span>
             </div>
         ));
-    }, [memoizedOptions, tempSelected, handleItemSelect, type]);
+    }, [memoizedOptions, tempSelected, handleItemSelect, type, disabled]);
 
-    // Regular checkbox items (for default variant)
     const checkboxItems = useMemo(() => {
         return memoizedOptions.map(option => (
             <label key={option.id} className={styles.checkboxLabel}>
@@ -152,30 +198,33 @@ const Dropdown: React.FC<DropdownProps> = ({
                     checked={tempSelected.includes(option.id)}
                     onClick={handleItemSelect(option.id)}
                     className={styles.checkbox}
+                    disabled={disabled}
                 />
                 {option.name}
             </label>
         ));
-    }, [memoizedOptions, tempSelected, handleItemSelect, type]);
+    }, [memoizedOptions, tempSelected, handleItemSelect, type, disabled]);
 
-    // Get selected option names for display
     const selectedNames = useMemo(() => {
         return selected
             .map(id => memoizedOptions.find(o => o.id === id)?.name || '')
             .filter(Boolean);
     }, [selected, memoizedOptions]);
 
-    // MUI-style dropdown (task and employee variants)
+    // Add disabled class names to style elements appropriately
+    const disabledClass = disabled ? styles.disabled : '';
+
     if (variant === 'task' || variant === 'employee') {
         return (
-            <div className={`${styles.muiDropdown} ${containerClassName}`} style={containerStyle}>
+            <div className={`${styles.muiDropdown} ${containerClassName} ${disabledClass}`} style={containerStyle}>
                 <label className={styles.muiLabel}>{label}</label>
                 <div className={styles.muiSelect}>
                     <button 
-                        className={`${styles.muiSelectButton} ${isOpen ? styles.muiSelectButtonActive : ''}`}
+                        className={`${styles.muiSelectButton} ${isOpen ? styles.muiSelectButtonActive : ''} ${disabledClass}`}
                         onClick={handleToggle}
                         type="button"
                         style={{ border: "1px solid #DEE2E6" }}
+                        disabled={disabled}
                     >
                         <span className={styles.muiSelectText}>
                             {selectedNames.length > 0 
@@ -187,9 +236,8 @@ const Dropdown: React.FC<DropdownProps> = ({
                         </span>
                     </button>
                     
-                    {isOpen && (
+                    {isOpen && !disabled && (
                         <div className={styles.muiMenu}>
-                            {/* Use checkboxContainer class for consistent scrollbar styling */}
                             <div className={`${styles.muiMenuItems} ${
                                 variant === 'task' || variant === 'employee' ? 
                                 `${styles.scrollableMenu} ${styles.checkboxContainer}` : ''
@@ -203,33 +251,25 @@ const Dropdown: React.FC<DropdownProps> = ({
         );
     }
     
-    // Default variant
+    // Modified default variant to not require button press
     return (
-        <div className={`${styles.dropdown} ${containerClassName}`} style={containerStyle}>
+        <div className={`${styles.dropdown} ${containerClassName} ${disabledClass}`} style={containerStyle}>
             <button 
-                className={`${styles.dropdownToggle} ${isOpen ? styles.dropdownToggleActive : ''}`}
+                className={`${styles.dropdownToggle} ${isOpen ? styles.dropdownToggleActive : ''} ${disabledClass}`}
                 onClick={handleToggle}
                 type="button"
+                disabled={disabled}
             >
                 {label}
                 {isOpen ? <UpArrowSvg /> : <DownArrowSvg />}
             </button>
             
-            {isOpen && (
+            {isOpen && !disabled && (
                 <div className={styles.dropdownContent}>
                     <div className={styles.checkboxContainer}>
                         {checkboxItems}
                     </div>
-                    <div className={styles.buttonContainer}>
-                        <button 
-                            onClick={handleToggle}
-                            className={styles.saveButton}
-                            type="button"
-                            style={{ border: "1px solid #DEE2E6" }} // Added border styling here
-                        >
-                            <Typography variant='h3'>არჩევა</Typography>
-                        </button>
-                    </div>
+                    {/* Button is now optional based on user preference */}
                 </div>
             )}
         </div>
