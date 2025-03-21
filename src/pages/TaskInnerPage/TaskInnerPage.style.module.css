@@ -106,6 +106,36 @@
     position: relative;
 }
 
+.commentInputContainer {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+  }
+  
+  .commentInputContainer input {
+    width: 100%;
+    padding-right: 140px; /* Make space for the button */
+  }
+  
+  .commentInputContainer button {
+    position: absolute;
+    right: 20px;
+    top: 75%;
+    transform: translateY(-50%);
+    height: 35px; /* Adjust as needed */
+    z-index: 2;
+    border-radius: 20px;
+  }
+  
+  .buttonContainer {
+    margin-top: auto;
+    display: flex;
+    justify-content: flex-end;
+    margin-right: 350px;
+    margin-top: 50px;
+  }
+
 .commentHeader, .subcommentHeader {
     display: flex;
     align-items: center;

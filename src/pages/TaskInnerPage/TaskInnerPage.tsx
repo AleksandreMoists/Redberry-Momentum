@@ -159,22 +159,24 @@ const {
 
             <div className={styles.rightSide}>
                 <form onSubmit={onSubmitComment} className={styles.commentContainer}>
-                    <ControlledInput
-                        control={control}
-                        name="comment"
-                        placeholder="დაწერე კომენტარი"
-                        multiline={true}
-                        rows={4}
-                        sx={{ width: '100%' }}
-                    />
-                    <Button 
-                        type="submit"
-                        variant="primary" 
-                        className={styles.commentButton}
-                        disabled={isSubmittingComment}
-                    >
-                        {isSubmittingComment ? 'იგზავნება...' : 'დააკომენტარე'}
-                    </Button>
+                    <div className={styles.commentInputContainer}>
+                        <ControlledInput
+                            control={control}
+                            name="comment"
+                            placeholder="დაწერე კომენტარი"
+                            multiline={true}
+                            rows={4}
+                            sx={{ width: '100%' }}
+                        />
+                        <Button 
+                            type="submit"
+                            variant="primary" 
+                            className={styles.commentButton}
+                            disabled={isSubmittingComment}
+                        >
+                            {isSubmittingComment ? 'იგზავნება...' : 'დააკომენტარე'}
+                        </Button>
+                    </div>
                 </form>
 
                 <div className={styles.commentCount}>
