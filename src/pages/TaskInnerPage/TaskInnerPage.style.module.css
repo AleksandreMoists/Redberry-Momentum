@@ -1,12 +1,16 @@
 .container {
     display: flex;
     justify-content: space-between;
+    gap: 30px; /* Add a gap between left and right side */
+    padding: 20px; /* Add some overall padding */
 }
 
 .leftSide {
     display: flex;
     flex-direction: column;
-    gap: 50px;
+    gap: 40px; /* Adjusted gap */
+    flex: 1; /* Allow left side to take available space */
+    min-width: 300px; /* Prevent it from becoming too narrow */
 }
 
 .taskInfo {
@@ -19,19 +23,19 @@
     display: flex;
     flex-direction: row;
     gap: 18px;
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
 }
 
 .taskDescription {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 24px; /* Adjusted gap */
 }
 
 .taskDetails {
     display: flex;
     flex-direction: column;
-    gap: 18px;
-    row-gap: 30px;
+    gap: 24px; /* Adjusted gap */
 }
 
 .taskButton {
@@ -45,8 +49,10 @@
 .taskDetailGroup {
     display: flex;
     flex-direction: row;
-    gap: 70px;
-    height: 70px;
+    gap: 40px; /* Adjusted gap */
+    /* height: 70px; Let content define height */
+    align-items: flex-start; /* Align items to the top */
+    flex-wrap: wrap; /* Allow wrapping */
 }
 
 .textStyle {
@@ -55,24 +61,27 @@
     font-size: 14px;
     line-height: 150%;
     letter-spacing: 0%;
+    word-break: break-word; /* Ensure long text wraps */
 }
 
 .avatarStyle {
     width: 32px;
     height: 32px;
     border-radius: 50%;
+    flex-shrink: 0; /* Prevent avatar from shrinking */
 }
 
 .userStyle {
     display: flex;
     flex-direction: row;
     gap: 12px;
+    align-items: center; /* Vertically align avatar and text */
 }
 
 .employeeInfo {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 4px; /* Adjusted gap */
 }
 
 .employeeDepartment {
@@ -81,53 +90,61 @@
     font-size: 11px;
     line-height: 100%;
     letter-spacing: 0%;
-    text-align: right;
-
+    /* text-align: right; Align to left for consistency or remove */
 }
 
 .rightSide {
     display: flex;
     flex-direction: column;
-    width: 741px;
-    height: 975px;
-    gap: 50px;
+    /* width: 741px; Remove fixed width */
+    flex: 1.5; /* Allow right side to take more space if available */
+    min-width: 300px; /* Prevent it from becoming too narrow */
+    /* height: 975px; Remove fixed height */
+    max-height: calc(100vh - 100px); /* Example: limit height and allow scroll */
+    overflow-y: auto; /* Add scroll if content exceeds max-height */
+    gap: 30px; /* Adjusted gap */
     background-color: #F8F3FEA6;
-    margin-top: 50px;
-    padding: 50px;
+    /* margin-top: 50px; Remove, use container gap */
+    padding: 30px; /* Adjusted padding */
+    border-radius: 8px; /* Add some rounding */
 }
 
-    .comments {
-        display: inline-block;
-        position: relative;
-    }
+.comments {
+    display: inline-block; /* Or block, depending on desired layout */
+    position: relative;
+    width: 100%; /* Ensure it takes full width of its parent */
+}
 
-    .commentContainer {
-        position: relative;
-        width: 100%;
-        margin-bottom: 20px;
-    }
+.commentContainer {
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
 
-    /* This targets the wrapper around the input created by ControlledInput */
-    .commentContainer > div {
-        width: 100%;
-    }
+/* This targets the wrapper around the input created by ControlledInput */
+.commentContainer > div {
+    width: 100%;
+}
 
-    .commentButton {
-        position: absolute;
-        right: 16px;
-        bottom: 16px; /* Position from bottom instead of top */
-        border-radius: 20px;
-        border: none;
-        width: 155px;
-        height: 35px;
-        z-index: 2; /* Ensure button appears above input */
-    }
+.commentButton {
+    position: absolute;
+    right: 10px; /* Adjust for smaller padding */
+    bottom: 10px; /* Adjust for smaller padding */
+    border-radius: 20px;
+    border: none;
+    width: auto; /* Let content define width */
+    padding: 8px 16px; /* Add padding */
+    height: auto; /* Let content define height */
+    min-height: 35px;
+    z-index: 2; /* Ensure button appears above input */
+}
 
 .commentCount {
     display: flex;
     gap: 7px;    
-    width: 172px;
+    /* width: 172px; Let content define width */
     height: 24px;
+    align-items: center;
 }
 
 .commentStyle {
@@ -138,6 +155,8 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    color: white; /* Add text color for visibility */
+    font-size: 12px; /* Adjust font size */
 }
 
 .comment {
@@ -147,6 +166,8 @@
     margin-bottom: 20px;
     border-radius: 8px;
     position: relative;
+    background-color: #fff; /* Add a background to distinguish comments */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1); /* Optional: add some shadow */
 }
 
 .commentInputContainer {
@@ -154,30 +175,33 @@
     display: flex;
     align-items: center;
     width: 100%;
-  }
+}
   
-  .commentInputContainer input {
+.commentInputContainer input { /* Assuming this targets a raw input or a component that renders one */
     width: 100%;
-    padding-right: 140px; /* Make space for the button */
-  }
+    padding-right: 120px; /* Adjust space for the button, depends on button width */
+    box-sizing: border-box; /* Ensure padding doesn't add to width */
+}
   
-  .commentInputContainer button {
+.commentInputContainer button {
     position: absolute;
-    right: 20px;
-    top: 75%;
+    right: 5px; /* Adjust position */
+    top: 50%; /* Center vertically */
     transform: translateY(-50%);
-    height: 35px; /* Adjust as needed */
+    height: auto; /* Adjust as needed */
+    min-height: 35px;
+    padding: 6px 12px; /* Adjust padding */
     z-index: 2;
     border-radius: 20px;
-  }
+}
   
-  .buttonContainer {
+.buttonContainer {
     margin-top: auto;
     display: flex;
     justify-content: flex-end;
-    margin-right: 350px;
-    margin-top: 50px;
-  }
+    /* margin-right: 350px; Remove or adjust significantly */
+    margin-top: 20px; /* Adjusted margin */
+}
 
 .commentHeader, .subcommentHeader {
     display: flex;
@@ -188,6 +212,7 @@
 .commentContent, .subcommentContent {
     margin-left: 44px; /* Aligns with the username, after the avatar */
     margin-bottom: 12px;
+    word-break: break-word; /* Ensure long comments wrap */
 }
 
 .avatar {
@@ -195,6 +220,7 @@
     height: 36px;
     border-radius: 50%;
     margin-right: 8px;
+    flex-shrink: 0;
 }
 
 .avatarPlaceholder {
@@ -208,6 +234,7 @@
     justify-content: center;
     font-weight: bold;
     margin-right: 8px;
+    flex-shrink: 0;
 }
 
 .user {
@@ -220,29 +247,34 @@
     justify-content: flex-start;
     margin-left: 44px;
     margin-bottom: 8px;
+    flex-wrap: wrap; /* Allow actions to wrap */
+    gap: 8px; /* Add gap between actions */
 }
 
 .commentAction {
     padding: 4px 8px;
     font-size: 14px;
     color: #8338EC;
+    cursor: pointer; /* Add cursor pointer */
 }
 
 .subcomments {
     margin-top: 16px;
-    margin-left: 44px; /* Indent subcomments */
+    margin-left: 20px; /* Reduced indent for subcomments */
     padding-left: 12px;
+    border-left: 2px solid #eee; /* Optional: add a visual indicator for threading */
 }
 
 .subcomment {
     padding: 12px;
     margin-bottom: 12px;
     border-radius: 8px;
+    background-color: #f9f9f9; /* Slightly different background for subcomments */
 }
 
 .replyFormContainer {
     margin-top: 8px;
-    margin-left: 44px;
+    margin-left: 0; /* Remove left margin, rely on subcomment indent */
     padding: 12px;
     background-color: #f7f2fe;
     border-radius: 8px;
@@ -258,4 +290,165 @@
 .subcommentActions {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap; /* Allow actions to wrap */
+}
+
+/* Tablet Styles */
+@media (max-width: 1024px) {
+    .container {
+        flex-direction: column; /* Stack left and right side */
+        gap: 20px;
+        padding: 15px;
+    }
+
+    .leftSide, .rightSide {
+        min-width: 100%; /* Take full width when stacked */
+        flex-basis: auto; /* Reset flex-basis */
+    }
+
+    .rightSide {
+        max-height: none; /* Allow right side to grow as needed */
+        overflow-y: visible; /* Remove scroll for stacked layout */
+        padding: 20px;
+    }
+
+    .taskDetailGroup {
+        gap: 20px; /* Reduce gap */
+    }
+
+    .commentInputContainer input {
+        padding-right: 100px; /* Adjust for potentially smaller button */
+    }
+
+    .commentInputContainer button {
+        padding: 6px 10px;
+    }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 10px;
+    }
+
+    .leftSide {
+        gap: 20px;
+    }
+
+    .rightSide {
+        padding: 15px;
+        gap: 20px;
+    }
+    
+    .priorityDepartment {
+        gap: 10px;
+    }
+
+    .taskDescription {
+        gap: 16px;
+    }
+
+    .taskDetails {
+        gap: 16px;
+    }
+
+    .taskDetailGroup {
+        flex-direction: column; /* Stack detail items vertically */
+        gap: 15px;
+        align-items: flex-start;
+    }
+    
+    .taskButton {
+        font-size: 20px; /* Slightly smaller button text */
+    }
+
+    .commentButton {
+        padding: 6px 12px;
+        font-size: 13px; /* Adjust font size */
+        right: 5px;
+        bottom: 5px;
+    }
+
+    .commentInputContainer input {
+        padding-right: 90px; /* Further adjust */
+    }
+    
+    .commentInputContainer button {
+        font-size: 13px; /* Adjust font size */
+    }
+
+    .commentContent, .subcommentContent {
+        margin-left: 10px; /* Reduce indent */
+        font-size: 13px;
+    }
+
+    .commentActions, .subcommentActions {
+        margin-left: 10px; /* Reduce indent */
+    }
+    
+    .commentAction {
+        font-size: 13px;
+    }
+
+    .subcomments {
+        margin-left: 10px;
+        padding-left: 8px;
+    }
+
+    .avatar, .avatarPlaceholder {
+        width: 30px;
+        height: 30px;
+        margin-right: 6px;
+        font-size: 12px; /* For placeholder */
+    }
+
+    .userStyle {
+        gap: 8px;
+    }
+}
+
+/* Smaller Mobile Styles */
+@media (max-width: 480px) {
+    .leftSide {
+        gap: 15px;
+    }
+    .rightSide {
+        padding: 10px;
+        gap: 15px;
+    }
+
+    .textStyle {
+        font-size: 13px;
+    }
+
+    .commentButton {
+        width: 100%; /* Make button full width for easier tapping */
+        position: static; /* Change positioning for full width */
+        margin-top: 8px; /* Add some space above */
+    }
+
+    .commentContainer {
+        /* Adjust if button is now static */
+    }
+    
+    .commentInputContainer {
+        flex-direction: column; /* Stack input and button */
+        align-items: stretch;
+    }
+
+    .commentInputContainer input {
+        padding-right: 10px; /* Reset padding as button is below */
+        margin-bottom: 8px;
+    }
+
+    .commentInputContainer button {
+        position: static; /* Reset positioning */
+        transform: none;
+        width: 100%; /* Full width */
+    }
+
+    .buttonContainer {
+        /* margin-right: 0; */ /* Reset margin */
+        justify-content: center; /* Center button if needed */
+    }
 }
