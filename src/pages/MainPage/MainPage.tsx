@@ -81,11 +81,11 @@ const MainPage: React.FC = () => {
     return (
         <>
             <div className={styles.category}>
-                <Typography variant="h1">დავალებების გვერდი</Typography>
+                <Typography variant="h1">Tasks Page</Typography>
                 <div className={styles.categoryDropdown}>
                 <Dropdown 
                     id="departments"
-                    label="დეპარტამენტი"
+                    label="Department"
                     options={departmentOptions}
                     onSelect={setDepartments}
                     externalSelected={departments}
@@ -94,7 +94,7 @@ const MainPage: React.FC = () => {
 
                 <Dropdown 
                     id="priorities"
-                    label="პრიორიტეტი"
+                    label="Priority"
                     options={priorityOptions}
                     onSelect={setPriorities}
                     externalSelected={priorities}
@@ -103,7 +103,7 @@ const MainPage: React.FC = () => {
 
                 <Dropdown 
                     id="employees"
-                    label="თანამშრომელი"
+                    label="Employee"
                     options={formattedEmployeeOptions}
                     onSelect={setEmployees}
                     type="radio"

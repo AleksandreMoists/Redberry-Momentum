@@ -1,4 +1,4 @@
-  import React from 'react';
+import React from 'react';
   import Typography from '../../components/Typography/Typography';
   import Button from '../../components/Button/Button';
   import styles from './CreateEmployee.style.module.css';
@@ -67,7 +67,7 @@
             <XSvg />
           </div>
           <div className={styles.modalHeader}>
-            <Typography variant="h1">თანამშრომლის შექმნა</Typography>
+            <Typography variant="h1">Create Employee</Typography>
           </div>
           
           {/* Use onSubmit to properly handle form submission */}
@@ -78,7 +78,7 @@
                 <div className={styles.inputContainer}>
                   <ControlledInput
                     name='name'
-                    label='სახელი*'
+                    label='Name*'
                     control={control as any}
                     type='text'
                     validationState={validationStates.name}
@@ -93,7 +93,7 @@
                 <div className={styles.inputContainer}>
                   <ControlledInput
                     name='surname'
-                    label='გვარი*'
+                    label='Surname*'
                     control={control as any}
                     type='text'
                     validationState={validationStates.surname}
@@ -119,12 +119,12 @@
             <div className={styles.dropdown}>
               <Dropdown
                 id='departments'
-                label='დეპარტამენტი*'
+                label='Department*'
                 options={departmentOptions}
                 type='radio'
                 onSelect={handleDepartmentSelect}
                 variant='employee'
-                placeholder={loadingDepartments ? 'იტვირთება...' : 'აირჩიე დეპარტამენტი'}
+                placeholder='Choose Department'
               />
             </div>
 

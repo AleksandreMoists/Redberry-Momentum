@@ -23,7 +23,7 @@ export const Layout: React.FC = () => {
     // Handle successful employee creation
     setIsModalOpen(false);
     // You could optionally add a success message or refresh data here
-  };
+  };  
 
   return (
     <div className={styles.container}>
@@ -45,7 +45,7 @@ export const Layout: React.FC = () => {
             variant="outlined" 
             onClick={handleOpenModal}
           >
-            თანამშრომლის შექმნა
+            Create Employee
           </Button>
           <Button
             type="button"
@@ -53,7 +53,7 @@ export const Layout: React.FC = () => {
             onClick={() => navigate('/create-task')}
             startIcon={<PlusSvg />}
           >
-            შექმენი ახალი დავალება
+            Create New Task
           </Button>
         </div>
       </div>

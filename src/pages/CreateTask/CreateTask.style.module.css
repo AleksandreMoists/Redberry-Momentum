@@ -1,82 +1,144 @@
 .formContainer {
-    display: flex;
-    flex-direction: column;
-    width: 1684px;
-    height: 958px;
-    background-color: #FBF9FFA6;
-    padding: 65px 55px;
-    margin-top: 30px;
-    border-radius: 4px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px;
+}
+
+.form {
+  width: 100%;
 }
 
 .inputContainer {
-    display: flex;
-    flex-direction: row;
-    gap: 100px;
-    align-items: flex-start; /* Align items to the top */
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  margin-bottom: 40px;
 }
 
 .leftSide {
-    display: flex;
-    flex-direction: column;
-    gap: 55px;
-}
-
-.dropdowns {
-    display: flex;
-    gap: 16px;
-    margin-top: 16px;
-    margin-bottom: 24px;
-    width: 550px;
-    height: 260px;   
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .rightSide {
-    display: flex;
-    flex-direction: column;
-    gap: 55px; /* Match the gap from leftSide */
-    width: fit-content;
-    margin-top: 0; /* Ensure no extra margin at top */
-    padding-top: 0; /* Ensure no extra padding at top */
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.dropdowns {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .dropdownStyle {
-    width: 550px;
-    height: 45px; /* Standardize heights for better alignment */
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .dateStyle {
-    display: flex;
-    flex-direction: column;
-    height: 45px !important;
-    margin-top: 260px;
-}
-
-/* For the first element in each column to ensure they align */
-.leftSide > *:first-child,
-.rightSide > *:first-child {
-    margin-top: 0;
-    padding-top: 0;
-}
-
-/* Style for label elements to ensure consistent heights */
-.leftSide label,
-.rightSide label {
-    margin-bottom: 8px; /* Consistent margin for labels */
-    display: block;
+  margin-top: auto;
 }
 
 .buttonContainer {
-    margin-top: auto; /* Push button to bottom of container */
-    display: flex;
-    justify-content: flex-end; /* Align to right of container */
-    margin-right: 350px;
-    margin-top: 50px; /* Add space before button */
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
 }
 
-.buttonContainer button:disabled {
-    background-color: #B588F4 !important;
-    cursor: not-allowed;
-    opacity: 0.7;
+/* Error text styling */
+.errorText {
+  color: #dc3545;
+  text-align: center;
+  margin-top: 16px;
+}
+
+/* Tablet Responsive */
+@media (max-width: 768px) {
+  .formContainer {
+    padding: 24px 16px;
+    max-width: 100%;
   }
   
+  .inputContainer {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+  
+  .leftSide,
+  .rightSide {
+    gap: 20px;
+  }
+  
+  .dropdowns,
+  .dropdownStyle {
+    gap: 20px;
+  }
+  
+  .buttonContainer {
+    margin-top: 32px;
+  }
+}
+
+/* Mobile Responsive */
+@media (max-width: 480px) {
+  .formContainer {
+    padding: 16px 12px;
+  }
+  
+  .inputContainer {
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  
+  .leftSide,
+  .rightSide {
+    gap: 16px;
+  }
+  
+  .dropdowns,
+  .dropdownStyle {
+    gap: 16px;
+  }
+  
+  .dateStyle {
+    margin-top: 0;
+  }
+  
+  .buttonContainer {
+    margin-top: 24px;
+  }
+  
+  /* Make DatePicker responsive */
+  .dateStyle :global(.MuiInputBase-root) {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Very small mobile screens */
+@media (max-width: 360px) {
+  .formContainer {
+    padding: 12px 8px;
+  }
+  
+  .inputContainer {
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  
+  .leftSide,
+  .rightSide,
+  .dropdowns,
+  .dropdownStyle {
+    gap: 12px;
+  }
+  
+  .buttonContainer {
+    margin-top: 20px;
+  }
+}

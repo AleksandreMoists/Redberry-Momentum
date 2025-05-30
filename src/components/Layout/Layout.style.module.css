@@ -4,19 +4,25 @@
     display: flex;
     flex-direction: column;
     padding: 30px 120px;
+    min-height: 100vh; /* Ensure layout takes full viewport height */
 }
 
 .header {
     display: flex;
-    align-items: flex-start;
+    align-items: center; /* Align items vertically in the center */
     justify-content: space-between;
     width: 100%;
-    height: 100px;
+    height: auto; /* Allow height to adjust based on content */
+    min-height: 60px; /* Minimum height for the header */
+    padding-bottom: 20px; /* Add some space below the header */
+    flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+    gap: 20px; /* Add gap for wrapped items */
 }
 
 .logo {
     display: flex;
     gap: 4px;
+    align-items: center; /* Align logo items */
 }
 
 .logoStyle {
@@ -27,16 +33,106 @@
     line-height: 100%;
     color: #8338EC !important;
     font-family: 'Fredoka One', cursive;
-    letter-spacing: 0.5px; /* Adding slight letter spacing for better readability */
+    letter-spacing: 0.5px;
 }
 
 .buttons {
     display: flex;
-    height: 40px;
-    gap: 40px;
+    height: auto; /* Allow height to adjust */
+    gap: 20px; /* Adjust gap for buttons */
+    align-items: center; /* Align buttons */
+    flex-wrap: wrap; /* Allow buttons to wrap */
 }
 
 .main {
     flex: 1;
-    padding: 0 120px;
+    padding: 0; /* Remove horizontal padding, container will handle it */
+    width: 100%; /* Ensure main content takes full width */
+}
+
+/* Tablet Styles */
+@media (max-width: 1024px) {
+    .container {
+        padding: 20px 60px;
+    }
+
+    .header {
+        min-height: 80px; /* Adjust min-height */
+    }
+
+    .buttons {
+        gap: 15px;
+    }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px 30px;
+    }
+
+    .header {
+        flex-direction: column; /* Stack logo and buttons vertically */
+        align-items: flex-start; /* Align items to the start */
+        gap: 15px; /* Adjust gap for vertical layout */
+        height: auto; /* Allow height to adjust */
+        padding-bottom: 15px;
+    }
+
+    .logoStyle {
+        font-size: 28px; /* Slightly smaller logo text */
+        height: 34px;
+    }
+
+    .buttons {
+        width: 100%; /* Make buttons container full width */
+        justify-content: flex-start; /* Align buttons to the start */
+        gap: 10px;
+    }
+
+    /* If you want buttons to stack vertically on mobile too */
+    /*
+    .buttons {
+        flex-direction: column;
+        align-items: stretch; // Make buttons full width
+    }
+    .buttons > * { // Target direct children of .buttons
+        width: 100%;
+        margin-bottom: 10px; // Add space between stacked buttons
+    }
+    .buttons > *:last-child {
+        margin-bottom: 0;
+    }
+    */
+}
+
+/* Smaller Mobile Styles */
+@media (max-width: 480px) {
+    .container {
+        padding: 15px 15px;
+    }
+
+    .header {
+        gap: 10px;
+        padding-bottom: 10px;
+    }
+
+    .logoStyle {
+        font-size: 24px;
+        height: 30px;
+    }
+
+    .buttons {
+        flex-direction: column; /* Stack buttons vertically */
+        align-items: stretch; /* Make buttons take full width */
+        gap: 10px;
+    }
+
+    .buttons > * { /* Target direct children (buttons) */
+        width: 100%; /* Make each button full width */
+        margin-bottom: 10px;
+    }
+    .buttons > *:last-child {
+        margin-bottom: 0;
+    }
 }

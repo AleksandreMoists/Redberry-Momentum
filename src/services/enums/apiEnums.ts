@@ -19,17 +19,17 @@ export enum DepartmentId {
   };
   
   export const departmentOriginalNameMap: { [key: number]: string } = {
-    [DepartmentId.ADMINISTRATION]: "ადმინისტრაცია",
+    [DepartmentId.ADMINISTRATION]: "Administration",
     [DepartmentId.HUMAN_RESOURCES]: "HR",
-    [DepartmentId.FINANCE]: "ფინანსები",
-    [DepartmentId.SALES_MARKETING]: "მარკეტინგი",
-    [DepartmentId.LOGISTICS]: "ლოჯისტიკა",
-    [DepartmentId.TECHNOLOGY]: "ინფ. ტექ.",
-    [DepartmentId.MEDIA]: "დიზაინი"
+    [DepartmentId.FINANCE]: "Finance",
+    [DepartmentId.SALES_MARKETING]: "Marketing",
+    [DepartmentId.LOGISTICS]: "Logistics",
+    [DepartmentId.TECHNOLOGY]: "IT",
+    [DepartmentId.MEDIA]: "Design"
   };
 
   export const georgianMonthAbbreviations = [
-    'იანვ', 'თებ', 'მარ', 'აპრ', 'მაი', 'ივნ', 
-    'ივლ', 'აგვ', 'სექ', 'ოქტ', 'ნოე', 'დეკ'
+    'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
   ];
 

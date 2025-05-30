@@ -1,0 +1,17 @@
+.button {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+  min-height: 44px; /* Touch-friendly */
+}
+
+@media (max-width: 480px) {
+  .button {
+    width: 100%;
+    padding: 14px 20px;
+    font-size: 16px; /* Better for mobile */
+  }
+}

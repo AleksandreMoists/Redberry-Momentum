@@ -6,11 +6,15 @@
     border-radius: 15px;
     border: 1px solid #F7BC30;
     padding: 20px;
-    width: 381px;
-    height: 217px;
-    max-height: 217px;
-    gap: 28px;
+    /* width: 381px; Remove fixed width */
+    width: 100%; /* Make it take the full width of its parent column */
+    /* height: 217px; Remove fixed height, let content define it or use min-height */
+    min-height: 180px; /* Adjust as needed, or remove if dynamic height is preferred */
+    /* max-height: 217px; Consider if this is still needed, or adjust */
+    gap: 20px; /* Adjusted gap */
     cursor: pointer;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    transition: border-color 0.3s ease; /* Smooth transition for hover */
 }
 
 .container:hover {
@@ -21,40 +25,69 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center; /* Align items vertically */
     width: 100%;
-    height: 26px;
-    max-height: 26px;
+    /* height: 26px; Let content define height */
+    /* max-height: 26px; */
 }
 
 .priorityStyle {
     display: flex;
     gap: 6px;
+    align-items: center; /* Align icon and text */
 }
 
 .date {
     font-family: "FiraGO";
-    font-weight: 400px;
+    font-weight: 400; /* Corrected: remove px */
     font-size: 12px;
     line-height: 100%;
     color: var(--text-bold);
+    white-space: nowrap; /* Prevent date from wrapping if space is tight */
 }
 
 .details {
     display: flex;
     flex-direction: column;
-    padding: 0 10px;
+    padding: 0; /* Removed horizontal padding, container padding is enough */
     width: 100%;
-    height: 64px;
-    gap: 12px;
+    /* height: 64px; Let content define height */
+    gap: 10px; /* Adjusted gap */
+    flex-grow: 1; /* Allow details to take available space */
 }
+
+/* Assuming Typography components are used for title and description, 
+   their responsiveness would be handled by Typography styles or inline styles.
+   If not, add styles for title/description here. Example:
+.cardTitle {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 8px;
+    word-break: break-word; // Prevent long titles from breaking layout
+}
+
+.cardDescription {
+    font-size: 14px;
+    color: #555;
+    line-height: 1.4;
+    // Add text overflow handling if needed
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; // Limit to 2 lines
+    -webkit-box-orient: vertical;
+}
+*/
 
 .user{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center; /* Align items vertically */
     width: 100%;
-    height: 31px;
-    max-height: 31px;
+    /* height: 31px; Let content define height */
+    /* max-height: 31px; */
+    margin-top: auto; /* Push user section to the bottom if card has variable height */
 }
 
 .imageStyle {
@@ -65,4 +98,72 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0; /* Prevent image from shrinking */
+}
+
+/* Tablet and smaller desktop */
+@media (max-width: 1024px) {
+    .container {
+        padding: 16px;
+        gap: 16px;
+        min-height: 170px; /* Adjust as needed */
+    }
+
+    .details {
+        gap: 8px;
+    }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .container {
+        padding: 12px;
+        gap: 12px;
+        border-radius: 10px;
+        min-height: 160px; /* Adjust as needed */
+    }
+
+    .priority {
+        /* If priority items need to stack on very small screens */
+        /* flex-wrap: wrap; */
+        /* gap: 8px; */
+    }
+
+    .date {
+        font-size: 11px;
+    }
+
+    .imageStyle {
+        width: 28px;
+        height: 28px;
+    }
+}
+
+/* Smaller Mobile Styles */
+@media (max-width: 480px) {
+    .container {
+        padding: 10px;
+        gap: 10px;
+        min-height: auto; /* Allow height to be fully dynamic based on content */
+    }
+
+    .priorityStyle {
+        gap: 4px;
+    }
+    
+    /* Example: If you have a title and description inside .details */
+    /*
+    .cardTitle {
+        font-size: 14px;
+    }
+    .cardDescription {
+        font-size: 12px;
+        -webkit-line-clamp: 2; // Adjust line clamp if needed
+    }
+    */
+
+    .imageStyle {
+        width: 24px;
+        height: 24px;
+    }
 }

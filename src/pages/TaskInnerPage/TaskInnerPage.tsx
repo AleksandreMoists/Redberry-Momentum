@@ -130,9 +130,9 @@ const {
                     </div>
                 </div>
                 <div className={styles.taskDetails}>
-                    <Typography variant="subtitle" className={styles.taskButton}>დავალების დეტალები</Typography>
+                    <Typography variant="subtitle" className={styles.taskButton}>Task Details</Typography>
                     <div className={styles.taskDetailGroup}>
-                        <Typography variant="caption">სტატუსი</Typography>
+                        <Typography variant="caption">Status</Typography>
                         <Dropdown 
                             id="statuses"
                             options={statusesOptions}
@@ -140,14 +140,14 @@ const {
                             onSelect={handleStatusChange}
                             externalSelected={selectedStatusId}
                             variant="task"
-                            placeholder="აირჩიეთ სტატუსი"
+                            placeholder="Choose Status"
                             autoClose={true}
                             disabled={isUpdating} // Disable during status update
                         />
                         {isUpdating && <Typography variant="caption">მიმდინარეობს განახლება...</Typography>}
                     </div>
                     <div className={styles.taskDetailGroup}>
-                        <Typography variant="caption">თანამშრომელი</Typography>
+                        <Typography variant="caption">Employee</Typography>
                         <div className={styles.userStyle}>
                             <img src={employee.avatar} alt={employee.name[0]} className={styles.avatarStyle}  />
                             <span className={styles.employeeInfo}>
@@ -157,7 +157,7 @@ const {
                         </div>
                     </div>
                     <div className={styles.taskDetailGroup}>
-                        <Typography variant="caption">დასრულების თარიღი</Typography>
+                        <Typography variant="caption">Due Date</Typography>
                         <Typography variant="h2" className={styles.textStyle}>{formattedDueDate}</Typography>
                     </div>
                 </div>
@@ -169,7 +169,7 @@ const {
                         <ControlledInput
                             control={control}
                             name="comment"
-                            placeholder="დაწერე კომენტარი"
+                            placeholder="Write comment"
                             multiline={true}
                             rows={4}
                             sx={{ width: '100%' }}
@@ -180,13 +180,13 @@ const {
                             className={styles.commentButton}
                             disabled={isSubmittingComment}
                         >
-                            {isSubmittingComment ? 'იგზავნება...' : 'დააკომენტარე'}
+                            {isSubmittingComment ? 'Sending...' : 'Comment'}
                         </Button>
                     </div>
                 </form>
 
                 <div className={styles.commentCount}>
-                    <Typography variant="subtitle">კომენტარები</Typography>
+                    <Typography variant="subtitle">Comments</Typography>
                     <Typography variant="h3" className={styles.commentStyle}>
                         {isLoadingComments ? 'იტვირთება...' : (
                             comments.length + comments.flatMap(comment => comment.sub_comments || []).length
@@ -241,7 +241,7 @@ const {
                                             <ControlledInput
                                                 control={control}
                                                 name="reply"
-                                                placeholder="დაწერე პასუხი"
+                                                placeholder="Write reply"
                                                 multiline={true}
                                                 rows={2}
                                                 sx={{ width: '100%' }}
@@ -253,7 +253,7 @@ const {
                                                     size="small"
                                                     onClick={cancelReply}
                                                 >
-                                                    გაუქმება
+                                                  Cancel
                                                 </Button>
                                                 <Button 
                                                     type="submit"
@@ -261,7 +261,7 @@ const {
                                                     size="small"
                                                     disabled={isSubmittingComment}
                                                 >
-                                                    {isSubmittingComment ? 'იგზავნება...' : 'პასუხი'}
+                                                    {isSubmittingComment ? 'Sending...' : 'Reply'}
                                                 </Button>
                                             </div>
                                         </form>

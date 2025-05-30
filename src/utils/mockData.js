@@ -1,26 +1,14 @@
 export const priorities = [
-    {
-        id: 1,
-        name: "დაბალი",
-        icon: "https://momentum.redberryinternship.ge/storage/priority-icons/Low.svg"
-    },
-    {
-        id: 2,
-        name: "საშუალო",
-        icon: "https://www.pacific-research.com/wp-content/uploads/2020/05/medium-icon.png"
-    },
-    {
-        id: 3,
-        name: "მაღალი",
-        icon: "https://momentum.redberryinternship.ge/storage/priority-icons/High.svg"
-    }
+    {id: 3, name: "High", icon: "https://momentum.redberryinternship.ge/storage/priority-icons/High.svg"},
+    {id: 2, name: "Medium", icon: "https://momentum.redberryinternship.ge/storage/priority-icons/Medium.svg"},
+    {id: 1, name: "Low", icon: "https://momentum.redberryinternship.ge/storage/priority-icons/Low.svg"}
 ]
 
 export const statusData = [
-    {id: 1, label: "დასაწყები", color: "#F7BC30"},
-    {id: 2, label: "პროგრესში", color: "#FB5607"},
-    {id: 3, label: "მზად ტესტირებისთვის", color: "#FF006E"},
-    {id: 4, label: "დასრულებული", color: "#3A86FF"},
+    {id: 1, label: "To Do", color: "#27AE60"},
+    {id: 2, label: "In Progress", color: "#E67E22"},
+    {id: 3, label: "Ready for Testing", color: "#FF006E"},
+    {id: 4, label: "Completed", color: "#3A86FF"},
 ];
 
 export const cardData = [

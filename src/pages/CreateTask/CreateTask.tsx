@@ -36,7 +36,7 @@ const CreateTaskPage: React.FC = () => {
 
   return (
     <>
-      <Typography variant="h1">შექმენი ახალი დავალება</Typography>
+      <Typography variant="h1">Create New Task</Typography>
     
       <div className={styles.formContainer}>
         <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
@@ -44,7 +44,7 @@ const CreateTaskPage: React.FC = () => {
             <div className={styles.leftSide}>
               <ControlledInput
                 name='name' // Changed from 'title' to match your schema
-                label='სათაური*'
+                label='Title*'
                 control={control as any}
                 type='text'
                 validationState={validationStates.name} // Changed from 'title' to match your schema
@@ -55,7 +55,7 @@ const CreateTaskPage: React.FC = () => {
               />
               <ControlledInput
                 name='description'
-                label='აღწერა*'
+                label='Description*'
                 control={control as any}
                 type='text'
                 multiline={true}
@@ -69,23 +69,23 @@ const CreateTaskPage: React.FC = () => {
               <div className={styles.dropdowns}>
                 <Dropdown
                   id='priorities'
-                  label='პრიორიტეტი*'
+                  label='Priority*'
                   options={priorities}
                   type='radio'
                   onSelect={handlePrioritySelect}
                   variant='task'
-                  placeholder='აირჩიე პრიორიტეტი'
+                  placeholder='Choose Priority'
                   defaultSelected={[{id: 2, name: "საშუალო",}]}
                 />
                 
                 <Dropdown
                   id='statuses'
-                  label='სტატუსი*'
+                  label='Status*'
                   options={statusOptions}
                   type='radio'
                   onSelect={handleStatusSelect}
                   variant='task'
-                  placeholder='აირჩიე სტატუსი'
+                  placeholder='Choose Status'
                 />
               </div>
             </div>
@@ -94,28 +94,28 @@ const CreateTaskPage: React.FC = () => {
               <div className={styles.dropdownStyle}>
                 <Dropdown 
                   id='departments'
-                  label='დეპარტამენტი*'
+                  label='Department*'
                   options={departmentOptions}
                   type='radio'
                   onSelect={handleDepartmentSelect}
                   variant='task'
-                  placeholder='აირჩიე დეპარტამენტი'
+                  placeholder='Choose Department'
                 />
                 <Dropdown
                   id="create-task-employees"
-                  label="პასუხისმგებელი თანამშრომელი*"
+                  label="Responsible Employee*"
                   options={loadingEmployees ? [{id: 0, name: "Loading..."}] : employeeOptions}
                   onSelect={handleEmployeeSelect}
                   type="radio"
                   variant='task'
-                  placeholder='აირჩიე თანამშრომელი'
+                  placeholder='Choose Employee'
                   disabled={isEmployeeDropdownDisabled} // Pass the disabled state here
                   />
               </div>
               <div className={styles.dropdownStyle}>
               </div>
               <div className={styles.dateStyle}>
-                <Typography variant="caption">დედლაინის თარიღი</Typography>
+                <Typography variant="caption">Deadline Date</Typography>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
                     onChange={(date) => handleDateChange(date ? date.toDate() : null)}
